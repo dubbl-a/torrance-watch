@@ -82,10 +82,20 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
 </div>
 
 <div class="section">
-  <div class="section-head">What do Chen's donors do for a living?</div>
-  <div class="section-sub">Business owners, executives, physicians, and real estate professionals make up over a fifth of Chen's donor base. Working- and middle-class job titles account for just 4%.</div>
-  <div class="legend"><span><i style="background:#C0392B"></i>% of Chen's donors</span></div>
-  <div class="chart-wrap" style="height:250px"><canvas id="classChart"></canvas></div>
+  <div class="section-head">Where do Chen's donor dollars come from?</div>
+  <div class="section-sub">Business owners, executives, engineers, real estate and medical professionals, managers, bankers, and family members filing separately account for 61% of all dollars raised. Teachers, public servants, and service workers account for 5%.</div>
+  <div class="legend"><span><i style="background:#C0392B"></i>% of dollars raised</span></div>
+  <div class="chart-wrap" style="height:360px"><canvas id="classChart"></canvas></div>
+</div>
+
+<div class="section">
+  <div class="section-head">Who funds each candidate?</div>
+  <div class="section-sub">Business owners, engineers, RE/medical/legal/finance professionals, managers, bankers, and family members filing separately vs. teachers, public servants, and service workers — as a share of each candidate's donor dollars.</div>
+  <div class="legend">
+    <span><i style="background:#C0392B"></i>Business, professional, and family</span>
+    <span><i style="background:#1D9E75"></i>Teachers, public servants, service workers</span>
+  </div>
+  <div class="chart-wrap" style="height:160px"><canvas id="classCompare"></canvas></div>
 </div>
 
 <div class="section">
@@ -94,7 +104,7 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
   <div class="kalani-grid">
     <div class="kalani-stat"><div class="num">85%</div><div class="lbl">donors from Torrance</div></div>
     <div class="kalani-stat"><div class="num">0%</div><div class="lbl">out-of-state donors</div></div>
-    <div class="kalani-stat"><div class="num">26%</div><div class="lbl">working/middle class</div></div>
+    <div class="kalani-stat"><div class="num">15%</div><div class="lbl">from teachers and public servants</div></div>
   </div>
 </div>
 
@@ -102,20 +112,20 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
   <div class="section-head">Notable details</div>
   <div class="callout-grid">
     <div class="callout">
-      <div class="callout-title">15% of donors listed as "unemployed"</div>
-      <div class="callout-body">33 Chen donors self-reported as unemployed — including Maria Mattucci, spouse of Chen's slate-mate Aurelio.</div>
+      <div class="callout-title">61% from business and professional donors</div>
+      <div class="callout-body">Business owners, executives, engineers, medical/legal/finance professionals, managers, and related family members account for 61 cents of every dollar Chen raised.</div>
     </div>
     <div class="callout">
-      <div class="callout-title">Real estate industry ties</div>
-      <div class="callout-body">15 real estate professionals back Chen — including his own slate-mate Aurelio Mattucci, a real estate broker.</div>
+      <div class="callout-title">8% from family members maximizing donations</div>
+      <div class="callout-body">23 Chen donors filed as not employed and share a last name with another Chen donor. Torrance limits individuals to $1,000 — additional family members filing separately allows a household to multiply its total contribution.</div>
     </div>
     <div class="callout">
-      <div class="callout-title">Out-of-state money</div>
-      <div class="callout-body">Donors from Maryland, Texas, Ohio, and Nevada. Why are out-of-state interests funding a Torrance city council race?</div>
+      <div class="callout-title">Out-of-state donors</div>
+      <div class="callout-body">Chen received contributions from donors in Maryland, Texas, Ohio, and Nevada. Kalani received none from out of state.</div>
     </div>
     <div class="callout">
-      <div class="callout-title">Outside donors give more</div>
-      <div class="callout-body">Non-Torrance donors average 24% higher contributions than Torrance residents.</div>
+      <div class="callout-title">Real estate industry donors</div>
+      <div class="callout-body">Real estate and property professionals contributed to Chen's campaign, including his own slate-mate Aurelio Mattucci, a real estate broker.</div>
     </div>
   </div>
 </div>
@@ -158,18 +168,37 @@ new Chart(document.getElementById('geoChart'),{
 new Chart(document.getElementById('classChart'),{
   type:'bar',
   data:{
-    labels:['Retired','Owners/execs/professionals','"Unemployed"','Real estate/development','Working/middle class','Other'],
+    labels:['Retired','Business owners\nand executives','RE, medical, legal,\nand finance','Engineers and\ntechnical workers','Family members\nfiling separately','Managers\nand directors','Bankers, pharmacists,\nand insurance','Teachers, public servants,\nand service workers','Not employed'],
     datasets:[{
-      data:[29,21,15,7,4,31],
-      backgroundColor:[redLight,red,red,red,redLight,redLight],
+      data:[31,18,13,10,8,6,5,5,3],
+      backgroundColor:[redLight,red,red,red,red,red,red,redLight,redLight],
       borderRadius:5,barPercentage:0.65
     }]
   },
   options:{
     indexAxis:'y',responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'% of donors'}}},
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'% of dollars'}}},
     scales:{
       x:{grid:{color:grid},max:35,ticks:{color:txt,font:{size:11},callback:v=>v+'%'}},
+      y:{grid:{display:false},ticks:{color:txt,font:{size:10}}}
+    }
+  }
+});
+
+new Chart(document.getElementById('classCompare'),{
+  type:'bar',
+  data:{
+    labels:['Chen','Kalani'],
+    datasets:[
+      {label:'Business, professional, and family',data:[61,30],backgroundColor:red,borderRadius:5,barPercentage:0.6},
+      {label:'Teachers, public servants, service workers',data:[5,15],backgroundColor:green,borderRadius:5,barPercentage:0.6}
+    ]
+  },
+  options:{
+    indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'%'}}},
+    scales:{
+      x:{grid:{color:grid},max:70,ticks:{color:txt,font:{size:11},callback:v=>v+'%'}},
       y:{grid:{display:false},ticks:{color:txt,font:{size:12}}}
     }
   }
