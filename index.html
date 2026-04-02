@@ -34,7 +34,7 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
 .callout-body{font-size:13px;color:#9E3A3A;line-height:1.5}
 .data-section{margin-top:3rem;padding-top:1.5rem;border-top:1px solid #e0ddd6}
 .data-section p{font-size:13px;color:#888;margin-bottom:1rem;line-height:1.5}
-.dl-btn{display:inline-block;padding:10px 20px;background:#1a1a1a;color:#FAF9F6;font-size:13px;font-weight:500;border-radius:8px;text-decoration:none;cursor:pointer;border:none;font-family:inherit;transition:background 0.15s}
+.dl-btn{display:inline-block;padding:10px 20px;background:#1a1a1a;color:#FAF9F6;font-size:13px;font-weight:500;border-radius:8px;text-decoration:none;cursor:pointer;border:none;font-family:inherit;transition:background 0.15s;margin-right:8px;margin-bottom:8px}
 .dl-btn:hover{background:#333}
 .back-link{display:inline-block;font-size:12px;color:#999;text-decoration:none}
 .back-link:hover{color:#666;text-decoration:underline}
@@ -58,16 +58,16 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
     <span><i style="background:#C0392B"></i>Chen</span>
     <span><i style="background:#1D9E75"></i>Kalani</span>
   </div>
-  <div class="chart-wrap" style="height:240px"><canvas id="geoChart"></canvas></div>
+  <div class="chart-wrap" style="height:180px"><canvas id="geoChart"></canvas></div>
 </div>
 
 <div class="section">
   <div class="section-head">Who's giving the legal maximum?</div>
-  <div class="section-sub">Torrance caps individual donations at $1,000 per election. Among Chen's donors who maxed out, the majority don't live in Torrance.</div>
+  <div class="section-sub">Torrance caps individual donations at $1,000 per election. Most of Chen's maxed-out donors are from outside Torrance. Most of Kalani's are local.</div>
   <div class="stat-row">
     <div class="stat">
       <div class="stat-label">Chen's maxed-out donors from outside Torrance</div>
-      <div class="stat-num red">59%</div>
+      <div class="stat-num red">76%</div>
     </div>
     <div class="stat">
       <div class="stat-label">Kalani's maxed-out donors from outside Torrance</div>
@@ -90,10 +90,10 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
   <div class="section-head">Who's behind the money?</div>
   <div class="section-sub">Isolating the two occupation groups from the chart above: business owners, professionals, and their family<sup>2</sup> vs. teachers, public servants, and service workers.</div>
   <div class="legend">
-    <span><i style="background:#C0392B"></i>Business owners, professionals, and their family</span>
-    <span><i style="background:#1D9E75"></i>Teachers, public servants, service workers</span>
+    <span><i style="background:#C0392B"></i>Chen</span>
+    <span><i style="background:#1D9E75"></i>Kalani</span>
   </div>
-  <div class="chart-wrap" style="height:160px"><canvas id="contrastChart"></canvas></div>
+  <div class="chart-wrap" style="height:180px"><canvas id="contrastChart"></canvas></div>
 </div>
 
 <div class="section">
@@ -122,6 +122,7 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
   <div class="section-head">Verify it yourself</div>
   <p>All data comes from public campaign finance filings. Download the underlying donor records below.</p>
   <button class="dl-btn" id="dlBtn">Download Chen donor data (CSV)</button>
+  <button class="dl-btn" id="dlBtnSK">Download Kalani donor data (CSV)</button>
   <a href="mattucci_2026.html" class="back-link" style="margin-top:0.75rem;">See also: Who funds Aurelio Mattucci? →</a>
 </div>
 
@@ -146,8 +147,8 @@ Chart.defaults.font.family="'DM Sans',sans-serif";
 const dlBase={font:{weight:600,size:12},formatter:v=>v?v+'%':''};
 
 new Chart(document.getElementById('geoChart'),{type:'bar',
-  data:{labels:['Torrance','South Bay\n(not Torrance)','Rest of\nCalifornia','Out of state'],
-    datasets:[{label:'Chen',data:[49,29,20,2],backgroundColor:red,...b},{label:'Kalani',data:[85,7,7,0],backgroundColor:green,...b}]},
+  data:{labels:['Torrance','Outside Torrance'],
+    datasets:[{label:'Chen',data:[45,55],backgroundColor:red,...b},{label:'Kalani',data:[85,15],backgroundColor:green,...b}]},
   options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},datalabels:{anchor:'end',align:'end',color:txt,...dlBase},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'% of donors'}}},
     scales:{x:{grid:{display:false},ticks:{color:txt,font:{size:12},maxRotation:0}},y:{display:false,max:100}}}});
@@ -160,11 +161,11 @@ new Chart(document.getElementById('classChart'),{type:'bar',
     scales:{x:{display:false,max:85},y:{grid:{display:false},ticks:{color:txt,font:{size:10}}}}}});
 
 new Chart(document.getElementById('contrastChart'),{type:'bar',
-  data:{labels:['Chen','Kalani'],
-    datasets:[{label:'Business owners, professionals, and their family',data:[61,30],backgroundColor:red,...b},{label:'Teachers, public servants, service workers',data:[5,19],backgroundColor:green,...b}]},
+  data:{labels:['Business owners, professionals,\nand their family','Teachers, public servants,\nservice workers'],
+    datasets:[{label:'Chen',data:[61,5],backgroundColor:red,...b},{label:'Kalani',data:[30,19],backgroundColor:green,...b}]},
   options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},datalabels:{anchor:'end',align:'end',color:txt,...dlBase},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'% of dollars'}}},
-    scales:{x:{display:false,max:85},y:{grid:{display:false},ticks:{color:txt,font:{size:12}}}}}});
+    scales:{x:{display:false,max:85},y:{grid:{display:false},ticks:{color:txt,font:{size:11}}}}}});
 
 document.getElementById('dlBtn').addEventListener('click',function(){
   const csv=`Full Name,City,Employer,Job Title,State,Zip,Total Donated 2026
@@ -334,6 +335,43 @@ document.getElementById('dlBtn').addEventListener('click',function(){
   const a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
   a.download='george_chen_donors_2025.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+document.getElementById('dlBtnSK').addEventListener('click',function(){
+  const csv=`Full Name,City,Employer,Job Title,State,Zip,Total Donated 2026
+"Harriette Adelsman","Redondo Beach, Torrance","Retired","Retired","CA","90277","$1000.00"
+"Adam Schwartz","Torrance","AMS","Property Manager","CA","90501","$1000.00"
+"Frank Chang","Torrance","","Retired","CA","90505","$1000.00"
+"Patrick Furey","Torrance","City of Torrance","Mayor","CA","90503","$500.00"
+"Elizabeth Spatz","Torrance","Disney Consumer Prodicts","Librarian","CA","90505","$1000.00"
+"Russ Lesser","Manhattan Beach","Dive 'n Surf","Executive","CA","90266","$1000.00"
+"Cynthia L. Scotto","Redondo Beach","Retired","Retired","CA","90277","$1000.00"
+"Mary K. Hoffman","Torrance","","Retired","CA","90505","$250.00"
+"Pamela Popovich","Torrance, Redondo Beach","","Retired","CA","90277","$100.00"
+"Geoff Rizzo","Torrance","","Retired","CA","90503","$250.00"
+"Kirk Rossberg","Torrance, Redondo Beach","Torrance Bakery","President","CA","90501","$1000.00"
+"Rowan Foxwood","Torrance","","Retired","CA","90503","$1000.00"
+"Christopher Truman","Torrance","Maven Health","Software Engineer","CA","90503","$100.00"
+"Susan Niemeyer","Torrance","Los Angeles City College","Professor","CA","90503","$200.00"
+"Aamer Javaid","Torrance","PRL Aluminum Inc.","I.T Director","CA","90503","$250.00"
+"Bill Sutherland","Torrance","","Retired","CA","90501","$250.00"
+"Peter Lefevre","Torrance","California State University, Dominguez Hills","Senior Director, Corporate & Foundation Relations","CA","90503","$100.00"
+"James Titiriga","Torrance","Torrance Police","Sargent","CA","90501","$100.00"
+"George Issaians","Glendale","","Retired","CA","91202","$500.00"
+"Susan Gibson","Torrance","CSU","Professor","CA","90505","$200.00"
+"Dickey Amemiya","Torrance","","Retired","CA","90504","$200.00"
+"Randall Klinenberg","Torrance","","Retired","CA","90501","$150.00"
+"Linda Babcock","Torrance","","Retired","CA","90505","$100.00"
+"Keith Montoya","Torrance","","Retired","CA","90503","$100.00"
+"Mike Lewis","Torrance","City of Torrance","Police Services Supervisor","CA","90503","$100.00"
+"Patrice Lefevre","Torrance","Bookkeeping 4 You","President/Owner","CA","90503","$100.00"
+"Thomas Saulenas","San Mateo","Walgreens","Senior Analysts","CA","94402","$100.00"`;
+  const blob=new Blob([csv],{type:'text/csv'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='sharon_kalani_donors_2025.csv';
   a.click();
   URL.revokeObjectURL(a.href);
 });
