@@ -18,7 +18,7 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
 .section-head{font-family:'Instrument Serif',serif;font-size:1.35rem;font-weight:400;margin-bottom:0.5rem;color:#111}
 .section-sub{font-size:14px;color:#666;margin-bottom:1.25rem;line-height:1.5}
 .chart-wrap{position:relative;width:100%;margin-bottom:0.5rem}
-.legend{display:flex;gap:1.25rem;margin-bottom:0.75rem;font-size:12px;color:#888}
+.legend{display:flex;flex-wrap:wrap;gap:1.25rem;margin-bottom:0.75rem;font-size:12px;color:#888}
 .legend span{display:flex;align-items:center;gap:5px}
 .legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
 .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem}
@@ -32,18 +32,11 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
 .callout{background:#FDF0EE;border-radius:10px;padding:1rem}
 .callout-title{font-size:13px;font-weight:600;color:#7A2020;margin-bottom:4px}
 .callout-body{font-size:13px;color:#9E3A3A;line-height:1.5}
-.kalani-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:0.5rem}
-.kalani-stat{background:#EDF7F2;border-radius:10px;padding:1rem;text-align:center}
-.kalani-stat .num{font-size:1.5rem;font-weight:600;color:#0F6E56}
-.kalani-stat .lbl{font-size:11px;color:#5A8F76;margin-top:2px}
 .data-section{margin-top:3rem;padding-top:1.5rem;border-top:1px solid #e0ddd6}
 .data-section p{font-size:13px;color:#888;margin-bottom:1rem;line-height:1.5}
 .dl-btn{display:inline-block;padding:10px 20px;background:#1a1a1a;color:#FAF9F6;font-size:13px;font-weight:500;border-radius:8px;text-decoration:none;cursor:pointer;border:none;font-family:inherit;transition:background 0.15s}
 .dl-btn:hover{background:#333}
-@media(max-width:540px){
-  .stat-row,.callout-grid{grid-template-columns:1fr}
-  .kalani-grid{grid-template-columns:1fr 1fr 1fr}
-}
+@media(max-width:540px){.stat-row,.callout-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -51,8 +44,8 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
 
 <div class="kicker">Torrance 2026 election</div>
 <h1>Who funds George Chen's campaign?</h1>
-<div class="dek">A look at the donors behind Chen's mayoral bid — where they live, what they do, and how they compare to Sharon Kalani's base of support.</div>
-<div class="source">$100+ donations filed through December 31, 2025 · Source: City of Torrance NetFile (public record)</div>
+<div class="dek">A look at the donors behind Chen's mayoral bid compared to Sharon Kalani's base of support.</div>
+<div class="source">Itemized donations ($100+) filed through December 31, 2025<sup>3</sup></div>
 
 <div class="section">
   <div class="section-head">Where do the donors live?</div>
@@ -71,53 +64,40 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
     <div class="stat">
       <div class="stat-label">Chen's maxed-out donors from outside Torrance</div>
       <div class="stat-num red">59%</div>
-      <div class="stat-note">Most max contributors aren't local</div>
     </div>
     <div class="stat">
       <div class="stat-label">Kalani's maxed-out donors from outside Torrance</div>
       <div class="stat-num green">25%</div>
-      <div class="stat-note">Most max contributors are local</div>
     </div>
   </div>
 </div>
 
 <div class="section">
-  <div class="section-head">Where do Chen's donor dollars come from?</div>
-  <div class="section-sub">Business owners, executives, engineers, real estate and medical professionals, managers, bankers, and family members filing separately account for 61% of all dollars raised. Teachers, public servants, and service workers account for 5%.</div>
-  <div class="legend"><span><i style="background:#C0392B"></i>% of dollars raised</span></div>
-  <div class="chart-wrap" style="height:360px"><canvas id="classChart"></canvas></div>
+  <div class="section-head">Where do the donor dollars come from?</div>
+  <div class="section-sub">Each candidate's donor dollars grouped by occupation as reported on their filings.<sup>1</sup></div>
+  <div class="legend">
+    <span><i style="background:#C0392B"></i>Chen</span>
+    <span><i style="background:#1D9E75"></i>Kalani</span>
+  </div>
+  <div class="chart-wrap" style="height:240px"><canvas id="classChart"></canvas></div>
 </div>
 
 <div class="section">
-  <div class="section-head">Who funds each candidate?</div>
-  <div class="section-sub">Business owners, engineers, RE/medical/legal/finance professionals, managers, bankers, and family members filing separately vs. teachers, public servants, and service workers — as a share of each candidate's donor dollars.</div>
+  <div class="section-head">Who's behind the money?</div>
+  <div class="section-sub">Isolating the two occupation groups from the chart above: business owners, professionals, and their family<sup>2</sup> vs. teachers, public servants, and service workers.</div>
   <div class="legend">
-    <span><i style="background:#C0392B"></i>Business, professional, and family</span>
+    <span><i style="background:#C0392B"></i>Business owners, professionals, and their family</span>
     <span><i style="background:#1D9E75"></i>Teachers, public servants, service workers</span>
   </div>
-  <div class="chart-wrap" style="height:160px"><canvas id="classCompare"></canvas></div>
-</div>
-
-<div class="section">
-  <div class="section-head">Kalani's donors: a different picture</div>
-  <div class="section-sub">Professors, librarians, police officers, a local bakery owner, and retirees — overwhelmingly from Torrance.</div>
-  <div class="kalani-grid">
-    <div class="kalani-stat"><div class="num">85%</div><div class="lbl">donors from Torrance</div></div>
-    <div class="kalani-stat"><div class="num">0%</div><div class="lbl">out-of-state donors</div></div>
-    <div class="kalani-stat"><div class="num">15%</div><div class="lbl">from teachers and public servants</div></div>
-  </div>
+  <div class="chart-wrap" style="height:160px"><canvas id="contrastChart"></canvas></div>
 </div>
 
 <div class="section">
   <div class="section-head">Notable details</div>
   <div class="callout-grid">
     <div class="callout">
-      <div class="callout-title">61% from business and professional donors</div>
-      <div class="callout-body">Business owners, executives, engineers, medical/legal/finance professionals, managers, and related family members account for 61 cents of every dollar Chen raised.</div>
-    </div>
-    <div class="callout">
-      <div class="callout-title">8% from family members maximizing donations</div>
-      <div class="callout-body">23 Chen donors filed as not employed and share a last name with another Chen donor. Torrance limits individuals to $1,000 — additional family members filing separately allows a household to multiply its total contribution.</div>
+      <div class="callout-title">8% from family members maximizing contributions</div>
+      <div class="callout-body">23 Chen donors filed as not employed and share a last name with another Chen donor.<sup>2</sup> Torrance limits individuals to $1,000. Additional household members filing separately allows a family to multiply its total contribution. Kalani has zero donors in this category.</div>
     </div>
     <div class="callout">
       <div class="callout-title">Out-of-state donors</div>
@@ -127,12 +107,24 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
       <div class="callout-title">Real estate industry donors</div>
       <div class="callout-body">Real estate and property professionals contributed to Chen's campaign, including his own slate-mate Aurelio Mattucci, a real estate broker.</div>
     </div>
+    <div class="callout">
+      <div class="callout-title">Outside donors give more per person</div>
+      <div class="callout-body">Chen's non-Torrance donors contributed 24% more per person on average than his Torrance-based donors.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #e0ddd6;">
+  <div style="font-size:12px;color:#999;line-height:1.7;">
+    <p style="margin-bottom:0.5rem;"><sup>1</sup> "Business owners, professionals, and their family" includes donors with filed titles of: business owner, president, CEO, CFO, founder, executive, engineer, programmer, physician, doctor, attorney, real estate broker/agent/developer, property investor, financial planner, finance manager, CPA, architect, director, manager, consultant, pharmacist, banker, insurance agent, and accountant — as well as family members (see note 2). "Teachers, public servants, and service workers" includes: teacher, professor, librarian, police officer, mayor, mechanic, bank teller, pastoral assistant, sales, instructor, and similar titles. "Retired" and "not employed" are reported as filed. Two Chen donors (under 1% of dollars) did not fit any category and are excluded.</p>
+    <p style="margin-bottom:0.5rem;"><sup>2</sup> "Their family" identifies donors who (a) filed a job title of unemployed, housewife, or homemaker and (b) share a last name with at least one other donor to the same candidate. Shared last names do not prove a family relationship — common surnames may produce false matches. This grouping surfaces a pattern, not an assertion of specific relationships.</p>
+    <p><sup>3</sup> All data from $100+ contributions filed with the City of Torrance through December 31, 2025 via <a href="https://public.netfile.com/pub2/?aid=TOR" style="color:#999;">Torrance NetFile</a>. Contributions under $100 are not required to be itemized and are not included.</p>
   </div>
 </div>
 
 <div class="data-section">
   <div class="section-head">Verify it yourself</div>
-  <p>All data comes from public campaign finance filings on Torrance NetFile. Download the underlying donor records below.</p>
+  <p>All data comes from public campaign finance filings. Download the underlying donor records below.</p>
   <button class="dl-btn" id="dlBtn">Download Chen donor data (CSV)</button>
 </div>
 
@@ -140,69 +132,31 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-const red='#C0392B', redLight='#E8A09A', green='#1D9E75';
-const grid='rgba(0,0,0,0.05)', txt='rgba(0,0,0,0.45)';
-const font={family:"'DM Sans',sans-serif"};
-
+const red='#C0392B',green='#1D9E75';
+const grid='rgba(0,0,0,0.05)',txt='rgba(0,0,0,0.45)';
+const b={borderRadius:5,barPercentage:0.7};
 Chart.defaults.font.family="'DM Sans',sans-serif";
 
-new Chart(document.getElementById('geoChart'),{
-  type:'bar',
-  data:{
-    labels:['Torrance','South Bay\n(not Torrance)','Rest of\nCalifornia','Out of state'],
-    datasets:[
-      {label:'Chen',data:[49,29,20,2],backgroundColor:red,borderRadius:5,barPercentage:0.7},
-      {label:'Kalani',data:[85,7,7,0],backgroundColor:green,borderRadius:5,barPercentage:0.7}
-    ]
-  },
-  options:{
-    responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'%'}}},
-    scales:{
-      x:{grid:{display:false},ticks:{color:txt,font:{size:12},maxRotation:0}},
-      y:{grid:{color:grid},max:100,ticks:{color:txt,font:{size:11},callback:v=>v+'%'}}
-    }
-  }
-});
+new Chart(document.getElementById('geoChart'),{type:'bar',
+  data:{labels:['Torrance','South Bay\n(not Torrance)','Rest of\nCalifornia','Out of state'],
+    datasets:[{label:'Chen',data:[49,29,20,2],backgroundColor:red,...b},{label:'Kalani',data:[85,7,7,0],backgroundColor:green,...b}]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'% of donors'}}},
+    scales:{x:{grid:{display:false},ticks:{color:txt,font:{size:12},maxRotation:0}},y:{grid:{color:grid},max:100,ticks:{color:txt,font:{size:11},callback:v=>v+'%'}}}}});
 
-new Chart(document.getElementById('classChart'),{
-  type:'bar',
-  data:{
-    labels:['Retired','Business owners\nand executives','RE, medical, legal,\nand finance','Engineers and\ntechnical workers','Family members\nfiling separately','Managers\nand directors','Bankers, pharmacists,\nand insurance','Teachers, public servants,\nand service workers','Not employed'],
-    datasets:[{
-      data:[31,18,13,10,8,6,5,5,3],
-      backgroundColor:[redLight,red,red,red,red,red,red,redLight,redLight],
-      borderRadius:5,barPercentage:0.65
-    }]
-  },
-  options:{
-    indexAxis:'y',responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'% of dollars'}}},
-    scales:{
-      x:{grid:{color:grid},max:35,ticks:{color:txt,font:{size:11},callback:v=>v+'%'}},
-      y:{grid:{display:false},ticks:{color:txt,font:{size:10}}}
-    }
-  }
-});
+new Chart(document.getElementById('classChart'),{type:'bar',
+  data:{labels:['Business owners, professionals,\nand their family ¹','Teachers, public servants,\nand service workers ¹','Retired','Not employed'],
+    datasets:[{label:'Chen',data:[61,5,31,3],backgroundColor:red,...b},{label:'Kalani',data:[30,19,51,0],backgroundColor:green,...b}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'% of dollars'}}},
+    scales:{x:{grid:{color:grid},max:70,ticks:{color:txt,font:{size:11},callback:v=>v+'%'}},y:{grid:{display:false},ticks:{color:txt,font:{size:10}}}}}});
 
-new Chart(document.getElementById('classCompare'),{
-  type:'bar',
-  data:{
-    labels:['Chen','Kalani'],
-    datasets:[
-      {label:'Business, professional, and family',data:[61,30],backgroundColor:red,borderRadius:5,barPercentage:0.6},
-      {label:'Teachers, public servants, service workers',data:[5,15],backgroundColor:green,borderRadius:5,barPercentage:0.6}
-    ]
-  },
-  options:{
-    indexAxis:'y',responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'%'}}},
-    scales:{
-      x:{grid:{color:grid},max:70,ticks:{color:txt,font:{size:11},callback:v=>v+'%'}},
-      y:{grid:{display:false},ticks:{color:txt,font:{size:12}}}
-    }
-  }
-});
+new Chart(document.getElementById('contrastChart'),{type:'bar',
+  data:{labels:['Chen','Kalani'],
+    datasets:[{label:'Business owners, professionals, and their family',data:[61,30],backgroundColor:red,...b},{label:'Teachers, public servants, service workers',data:[5,19],backgroundColor:green,...b}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'% of dollars'}}},
+    scales:{x:{grid:{color:grid},max:70,ticks:{color:txt,font:{size:11},callback:v=>v+'%'}},y:{grid:{display:false},ticks:{color:txt,font:{size:12}}}}}});
 
 document.getElementById('dlBtn').addEventListener('click',function(){
   const csv=`Full Name,City,Employer,Job Title,State,Zip,Total Donated 2026
