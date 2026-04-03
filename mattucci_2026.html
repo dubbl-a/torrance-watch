@@ -6,39 +6,7 @@
 <title>Who Funds Aurelio Mattucci? — Torrance 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#FAF9F6;color:#1a1a1a;font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65}
-.page{max-width:680px;margin:0 auto;padding:3rem 1.5rem 4rem}
-.kicker{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A32D2D;font-weight:600;margin-bottom:0.5rem}
-h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-weight:400;line-height:1.15;margin-bottom:1rem;color:#111}
-.dek{font-size:17px;color:#555;line-height:1.55;margin-bottom:0.75rem}
-.source{font-size:12px;color:#999;margin-bottom:3rem;padding-bottom:1.5rem;border-bottom:1px solid #e0ddd6}
-.section{margin-bottom:3rem}
-.section-head{font-family:'Instrument Serif',serif;font-size:1.35rem;font-weight:400;margin-bottom:0.5rem;color:#111}
-.section-sub{font-size:14px;color:#666;margin-bottom:1.25rem;line-height:1.5}
-.chart-wrap{position:relative;width:100%;margin-bottom:0.5rem}
-.legend{display:flex;flex-wrap:wrap;gap:1.25rem;margin-bottom:0.75rem;font-size:12px;color:#888}
-.legend span{display:flex;align-items:center;gap:5px}
-.legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
-.stat-row{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:1.5rem}
-.stat{background:#F0EEEA;border-radius:10px;padding:1rem 1.15rem}
-.stat-label{font-size:12px;color:#888;margin-bottom:2px}
-.stat-num{font-size:1.6rem;font-weight:600;letter-spacing:-0.02em}
-.stat-num.red{color:#B83230}
-.stat-note{font-size:12px;color:#999;margin-top:2px}
-.callout-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.callout{background:#FDF0EE;border-radius:10px;padding:1rem}
-.callout-title{font-size:13px;font-weight:600;color:#7A2020;margin-bottom:4px}
-.callout-body{font-size:13px;color:#9E3A3A;line-height:1.5}
-.data-section{margin-top:3rem;padding-top:1.5rem;border-top:1px solid #e0ddd6}
-.data-section p{font-size:13px;color:#888;margin-bottom:1rem;line-height:1.5}
-.dl-btn{display:inline-block;padding:10px 20px;background:#1a1a1a;color:#FAF9F6;font-size:13px;font-weight:500;border-radius:8px;text-decoration:none;cursor:pointer;border:none;font-family:inherit;transition:background 0.15s}
-.dl-btn:hover{background:#333}
-.back-link{display:inline-block;margin-top:0.75rem;font-size:12px;color:#999;text-decoration:none}
-.back-link:hover{color:#666;text-decoration:underline}
-@media(max-width:540px){.callout-grid{grid-template-columns:1fr}}
-</style>
+<link rel="stylesheet" href="shared.css">
 </head>
 <body>
 <div class="page">
@@ -46,8 +14,8 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
 <div class="kicker">Torrance 2026 election</div>
 <h1>Who funds Aurelio Mattucci's campaign?</h1>
 <div class="dek">A look at the donors behind Mattucci's bid for City Treasurer. Mattucci is a real estate broker and current District 5 councilmember.</div>
-<div style="font-size:12px;color:#999;margin-bottom:0.25rem"><a href="./" target="_blank" style="color:#999;text-decoration:none">See also: Mayor — Chen vs. Kalani →</a></div>
-<div style="font-size:12px;color:#999;margin-bottom:0.5rem"><a href="kaji_2026.html" target="_blank" style="color:#999;text-decoration:none">See also: District 1 — Kaji vs. Kartsonis →</a></div>
+<div class="cross-nav"><a href="./" target="_blank">See also: Mayor — Chen vs. Kalani →</a></div>
+<div class="cross-nav"><a href="kaji_2026.html" target="_blank">See also: District 1 — Kaji vs. Kartsonis →</a></div>
 <div class="source">Itemized donations ($100+) filed through December 31, 2025<sup>3</sup></div>
 
 <div class="section">
@@ -90,117 +58,28 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
   <button class="dl-btn" id="dlBtn">Download Mattucci donor data (CSV)</button>
 </div>
 
-<div class="section" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #e0ddd6;">
-  <div style="font-size:12px;color:#999;line-height:1.7;">
-    <p style="margin-bottom:0.5rem;"><sup>1</sup> "Business owners, professionals, and their family" includes donors with filed titles of: business owner, president, CEO, CFO, founder, executive, engineer, programmer, physician, doctor, attorney, real estate broker/agent/developer, property owner, property investor, financial planner, finance manager, CPA, architect, director, manager, consultant, pharmacist, banker, insurance agent, and accountant — as well as family members (see note 2). "Teachers, public servants, and service workers" includes: teacher, professor, librarian, police officer, mayor, mechanic, bank teller, pastoral assistant, sales, instructor, coach, court reporter, firearms instructor, and similar titles. "Retired" and "not employed" are reported as filed.</p>
-    <p style="margin-bottom:0.5rem;"><sup>2</sup> "Their family" identifies donors who (a) filed a job title of unemployed, housewife, or homemaker and (b) share a last name with at least one other donor to the same candidate. Shared last names do not prove a family relationship — common surnames may produce false matches. This grouping surfaces a pattern, not an assertion of specific relationships.</p>
-    <p><sup>3</sup> All data from $100+ contributions filed with the City of Torrance through December 31, 2025 via <a href="https://public.netfile.com/pub2/?aid=TOR" style="color:#999;">Torrance NetFile</a>. Contributions under $100 are not required to be itemized and are not included.</p>
-  </div>
-  <a href="index.html" class="back-link" style="margin-top:1rem;">← Back to Chen vs. Kalani analysis</a>
+<div class="footnotes">
+  <p><sup>1</sup> "Business owners, professionals, and their family" includes donors with filed titles of: business owner, president, CEO, CFO, founder, executive, engineer, programmer, physician, doctor, attorney, real estate broker/agent/developer, property owner, property investor, financial planner, finance manager, CPA, architect, director, manager, consultant, pharmacist, banker, insurance agent, and accountant — as well as family members (see note 2). "Teachers, public servants, and service workers" includes: teacher, professor, librarian, police officer, mayor, mechanic, bank teller, pastoral assistant, sales, instructor, coach, court reporter, firearms instructor, and similar titles. "Retired" and "not employed" are reported as filed.</p>
+  <p><sup>2</sup> "Their family" identifies donors who (a) filed a job title of unemployed, housewife, or homemaker and (b) share a last name with at least one other donor to the same candidate. Shared last names do not prove a family relationship — common surnames may produce false matches. This grouping surfaces a pattern, not an assertion of specific relationships.</p>
+  <p><sup>3</sup> All data from $100+ contributions filed with the City of Torrance through December 31, 2025 via <a href="https://public.netfile.com/pub2/?aid=TOR">Torrance NetFile</a>. Contributions under $100 are not required to be itemized and are not included.</p>
+  <a href="index.html" class="back-link">← Back to Chen vs. Kalani analysis</a>
 </div>
 
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<script src="page-data.js"></script>
+<script src="shared.js"></script>
 <script>
-const red='#C0392B';
-const grid='rgba(0,0,0,0.05)',txt='rgba(0,0,0,0.45)';
-const b={borderRadius:5,barPercentage:0.7};
-Chart.defaults.font.family="'DM Sans',sans-serif";
-Chart.register(ChartDataLabels);
+(function() {
+  var d = PAGE_DATA.mattucci;
 
-const dlHoriz={display:true,anchor:'end',align:'end',color:'#1a1a1a',font:{size:12,weight:600},formatter:v=>v+'%'};
+  createHorizontalBarChart('geoChart', Object.assign({}, d.geo, { tickSize: 12, datalabelColor: '#1a1a1a' }));
+  createHorizontalBarChart('classChart', Object.assign({}, d.occupation, { datalabelColor: '#1a1a1a' }));
 
-/* Geography — % of donors, horizontal bar, Torrance vs Not Torrance */
-new Chart(document.getElementById('geoChart'),{type:'bar',
-  data:{labels:['Torrance','Not Torrance'],
-    datasets:[{label:'Mattucci',data:[58,42],backgroundColor:['#C0392B','#A8A8A8'],...b}]},
-  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},datalabels:dlHoriz,tooltip:{callbacks:{label:c=>c.raw+'% of donors'}}},
-    scales:{x:{display:false,max:72},y:{grid:{display:false},ticks:{color:txt,font:{size:12}}}}}});
-
-/* Occupation — % of donor dollars, horizontal bar */
-new Chart(document.getElementById('classChart'),{type:'bar',
-  data:{labels:['Business owners, professionals,\nand their family ¹','Teachers, public servants,\nand service workers ¹','Retired','Not employed'],
-    datasets:[{label:'Mattucci',data:[66,15,12,7],backgroundColor:['#C0392B','#2E7D6A','#5B7FA5','#A8A8A8'],...b}]},
-  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},datalabels:dlHoriz,tooltip:{callbacks:{label:c=>c.raw+'% of dollars'}}},
-    scales:{x:{display:false,max:82},y:{grid:{display:false},ticks:{color:txt,font:{size:10}}}}}});
-
-/* CSV download */
-document.getElementById('dlBtn').addEventListener('click',function(){
-  const csv=`Full Name,City,Employer,Job Title,State,Zip,Total Donated 2026
-"Mark Tsuneishi","Torrance","Tsuneishi Insurance Agency","Business Owner","CA","90503","$250.00"
-"Arun Bhumitra","Torrance, Rolling Hills","Arjay Plaza","Property Owner","CA","90505","$750.00"
-"Robert Nickell","Torrance, Manhattan Beach","Pharmco","pharmacist","CA","90501","$1000.00"
-"Fred Liao","Irvine, Tustin","Chenco","real estate investment","CA","92602","$1000.00"
-"Tristan Harris","Newport Beach","Arbor Capital Partners IMC LLC","Real Estate","CA","92663","$1000.00"
-"James Righeimer","Newport Beach","Arbor Capital Partners","Chief Executive Officer","CA","92660","$1000.00"
-"Jay Bajaria","Manhattan Beach, Torrance","Self Employed","Gas Station Owner","CA","90266","$500.00"
-"John Hernandez","Torrance","New Challenge Ministries","Pastor","CA","90502","$768.45"
-"Kathleen Nickell","Manhattan Beach, Torrance","","Housewife","CA","90502","$1000.00"
-"Alessandro Bugliosi","Pomona, Redondo Beach","Gartner","Associate Director","CA","91767","$1000.00"
-"Lori Quan","Torrance","Preferred Bank","Banker","CA","90505","$200.00"
-"Kenneth Wright","Torrance, Redondo Beach","Self","Doctor","CA","90277","$250.00"
-"Dylan Wakayama","Torrance","Unemployed","Unemployed","CA","90503","$1000.00"
-"Erminio Bugliosi","Rancho Palos Verdes, Torrance","Retired","Retired","CA","90275","$103.94"
-"Christopher Jewett","Redondo Beach","Self Employed","Coach","CA","90277","$500.00"
-"William Scott Carter","Los Angeles, San Pedro","Self","Insurance","CA","90732","$463.94"
-"Daryle Nagano-Krier","Torrance","Los Angeles Harbor","Professor","CA","90502","$200.00"
-"Mario Divincenzo","Redondo Beach","Mario Divincenzo","Human Resources Consultant","CA","90277","$259.38"
-"John Dwyer","Redondo Beach","Gordon Rees LLP","Lawyer","CA","90277","$259.38"
-"Craig Neumann","Redondo Beach","Retired","Retired","CA","90277","$203.94"
-"Eric Schuchman","Torrance, Long Beach","LA County Assessor","Real Property Appraiser","CA","90505","$156.44"
-"Scott Fellows","Torrance","Critics Choice Catering","Owner","CA","90505","$100.00"
-"Irenea Tomaneng","Carson","Pepino Tailoring, Inc.","Store Clerk","CA","90745","$500.00"
-"Dan Thomas","Torrance","Charter Communications","Sales Executive","CA","90505","$100.00"
-"Ennio Schiappa","Lomita","Schiappa Homes","General Contractor","CA","90717","$500.00"
-"Robert Thomson","Torrance","Caught up bail bonds","Bail Agent","CA","90504","$207.56"
-"Rodney Guyton","Torrance, Gilbert","Self Employed","Manager","CA","90505","$103.94"
-"Tina Blakeman","Torrance","","Retired","CA","90501","$303.94"
-"Allison Lim","Torrance","GT Paper and Packaging, Inc.","President","CA","90503","$103.94"
-"Michael Mediano","Rancho Palos Verdes","","Retired","CA","90275","$259.38"
-"Alexis Gaspar","Middleton","Alexis Gaspar","Realtor","ID","83644","$259.38"
-"Michael Toth","Torrance","","Student","CA","90503","$259.38"
-"Laura Patti","Redondo Beach, Palos Verdes Peninsula","City of Torrance","Retired","CA","90277","$103.94"
-"Diane Tanouye","Torrance","","Retired","CA","90505","$103.94"
-"Sharon Sharp","Pacific Palisades, Beverly Hills","Kindred Spirits, LLC","Producer","CA","90210","$103.94"
-"Allisa Park","Torrance","Seoul Arts Academy","Art Teacher","CA","90503","$103.94"
-"Deborah Naumovski","Redondo Beach","RPM Commercial","Realtor","CA","90277","$200.00"
-"Benjamin Hsu","Redondo Beach, Palos Verdes Peninsula","First American Title","Sales","CA","90278","$100.00"
-"John Goya","Waddell","John Goya","Senior Vice President of Risk Management","AZ","85355","$200.00"
-"Michael Mauno","Torrance","Nordik Construction LLC","Owner","CA","90503","$100.00"
-"Stefanie Elwood","Torrance","","Retired","CA","90506","$100.00"
-"Brett Levin","Redondo Beach","Auto Body Paint Co.","Sales Representative","CA","90277","$100.00"
-"Michael Mitchell","Los Angeles, Hillsboro","Messer","Sr. Project Engineer","CA","90043","$100.00"
-"Donna O'Connell","Torrance","","Retired","CA","90503","$104.24"
-"Keith Koyano","Los Angeles","Los Angeles District Attorney","Attorney","CA","90012","$103.94"
-"Esmeralda Ruiz","Torrance","","Retired","CA","90505","$103.94"
-"Francesco M Funiciello","Rancho Palos Verdes","","Retired","CA","90275","$103.94"
-"Lynn Lavezzari","Torrance","","Retired","CA","90501","$103.94"
-"Dave Moore","Torrance","","Retired","CA","90503","$103.94"
-"Peter Wollner","Torrance","Peter Wollner","Real Estate Broker","CA","90505","$103.94"
-"Storm Bird","Torrance","Storm Industries","Senior Project Manager","CA","90505","$103.94"
-"Thomas Mota","Torrance","","Retired","CA","90505","$103.94"
-"Denise Scarpetti","Redondo Beach","","Retired","CA","90277","$100.00"
-"Doug Kato","Rancho Palos Verdes","Barefoot Distribution","Business Owner","CA","90275","$100.00"
-"Deana Andrews","Torrance","Sundae Inc","Realtor","CA","90501","$100.00"
-"Jeffrey Coates","Torrance","","Retired","CA","90503","$100.00"
-"Tarek Jarkas","Torrance","Mattucci Real Estate","Real Estate Agent","CA","90505","$100.00"
-"Edmund Tan","Lomita","Shoot Safe Learning LLC","Firearms Instructor","CA","90717","$100.00"
-"Michele Urbina","Torrance","Cortrpr Inc","Certified Court Reporter","CA","90503","$100.00"
-"Daniel Juarez","Hawthorne","","Retired","CA","90250","$100.00"
-"Arlene Hernandez","Torrance","","Retired","CA","90503","$100.00"
-"Carol Gilles","Torrance","Fredricks Realty","Realt Estate Agent","CA","90501","$50.00"`;
-
-  const blob=new Blob([csv],{type:'text/csv'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='mattucci_donors_2026.csv';
-  a.click();
-  URL.revokeObjectURL(a.href);
-});
+  setupAllDownloads('mattucci');
+})();
 </script>
 </body>
 </html>

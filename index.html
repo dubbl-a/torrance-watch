@@ -6,40 +6,7 @@
 <title>Who Funds George Chen? — Torrance 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#FAF9F6;color:#1a1a1a;font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65}
-.page{max-width:680px;margin:0 auto;padding:3rem 1.5rem 4rem}
-.kicker{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A32D2D;font-weight:600;margin-bottom:0.5rem}
-h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-weight:400;line-height:1.15;margin-bottom:1rem;color:#111}
-.dek{font-size:17px;color:#555;line-height:1.55;margin-bottom:0.75rem}
-.source{font-size:12px;color:#999;margin-bottom:3rem;padding-bottom:1.5rem;border-bottom:1px solid #e0ddd6}
-.section{margin-bottom:3rem}
-.section-head{font-family:'Instrument Serif',serif;font-size:1.35rem;font-weight:400;margin-bottom:0.5rem;color:#111}
-.section-sub{font-size:14px;color:#666;margin-bottom:1.25rem;line-height:1.5}
-.chart-wrap{position:relative;width:100%;margin-bottom:0.5rem}
-.legend{display:flex;flex-wrap:wrap;gap:1.25rem;margin-bottom:0.75rem;font-size:12px;color:#888}
-.legend span{display:flex;align-items:center;gap:5px}
-.legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
-.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem}
-.stat{background:#F0EEEA;border-radius:10px;padding:1rem 1.15rem}
-.stat-label{font-size:12px;color:#888;margin-bottom:2px}
-.stat-num{font-size:1.6rem;font-weight:600;letter-spacing:-0.02em}
-.stat-num.red{color:#B83230}
-.stat-num.green{color:#0F6E56}
-.stat-note{font-size:12px;color:#999;margin-top:2px}
-.callout-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.callout{background:#FDF0EE;border-radius:10px;padding:1rem}
-.callout-title{font-size:13px;font-weight:600;color:#7A2020;margin-bottom:4px}
-.callout-body{font-size:13px;color:#9E3A3A;line-height:1.5}
-.data-section{margin-top:3rem;padding-top:1.5rem;border-top:1px solid #e0ddd6}
-.data-section p{font-size:13px;color:#888;margin-bottom:1rem;line-height:1.5}
-.dl-btn{display:inline-block;padding:10px 20px;background:#1a1a1a;color:#FAF9F6;font-size:13px;font-weight:500;border-radius:8px;text-decoration:none;cursor:pointer;border:none;font-family:inherit;transition:background 0.15s;margin-right:8px;margin-bottom:8px}
-.dl-btn:hover{background:#333}
-.back-link{display:inline-block;font-size:12px;color:#999;text-decoration:none}
-.back-link:hover{color:#666;text-decoration:underline}
-@media(max-width:540px){.stat-row,.callout-grid{grid-template-columns:1fr}}
-</style>
+<link rel="stylesheet" href="shared.css">
 </head>
 <body>
 <div class="page">
@@ -47,8 +14,8 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
 <div class="kicker">Torrance 2026 election</div>
 <h1>Who funds George Chen's campaign?</h1>
 <div class="dek">A look at the donors behind Chen's mayoral bid compared to Sharon Kalani's base of support.</div>
-<div style="font-size:12px;color:#999;margin-bottom:0.25rem"><a href="kaji_2026.html" target="_blank" style="color:#999;text-decoration:none">See also: District 1 — Kaji vs. Kartsonis →</a></div>
-<div style="font-size:12px;color:#999;margin-bottom:0.5rem"><a href="mattucci_2026.html" target="_blank" style="color:#999;text-decoration:none">See also: Treasurer — Mattucci →</a></div>
+<div class="cross-nav"><a href="kaji_2026.html" target="_blank">See also: District 1 — Kaji vs. Kartsonis →</a></div>
+<div class="cross-nav"><a href="mattucci_2026.html" target="_blank">See also: Treasurer — Mattucci →</a></div>
 <div class="source">Itemized donations ($100+) filed through December 31, 2025<sup>3</sup></div>
 
 <div class="section">
@@ -67,11 +34,11 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
   <div class="stat-row">
     <div class="stat">
       <div class="stat-label">Chen's maxed-out donors from outside Torrance</div>
-      <div class="stat-num red">76%</div>
+      <div class="stat-num red" id="statRed"></div>
     </div>
     <div class="stat">
       <div class="stat-label">Kalani's maxed-out donors from outside Torrance</div>
-      <div class="stat-num green">25%</div>
+      <div class="stat-num green" id="statGreen"></div>
     </div>
   </div>
 </div>
@@ -125,255 +92,31 @@ h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,5vw,2.8rem);font-we
   <button class="dl-btn" id="dlBtnSK">Download Kalani donor data (CSV)</button>
 </div>
 
-<div class="section" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #e0ddd6;">
-  <div style="font-size:12px;color:#999;line-height:1.7;">
-    <p style="margin-bottom:0.5rem;"><sup>1</sup> "Business owners, professionals, and their family" includes donors with filed titles of: business owner, president, CEO, CFO, founder, executive, engineer, programmer, physician, doctor, attorney, real estate broker/agent/developer, property investor, financial planner, finance manager, CPA, architect, director, manager, consultant, pharmacist, banker, insurance agent, and accountant — as well as family members (see note 2). "Teachers, public servants, and service workers" includes: teacher, professor, librarian, police officer, mayor, mechanic, bank teller, pastoral assistant, sales, instructor, and similar titles. "Retired" and "not employed" are reported as filed. Two Chen donors (under 1% of dollars) did not fit any category and are excluded.</p>
-    <p style="margin-bottom:0.5rem;"><sup>2</sup> "Their family" identifies donors who (a) filed a job title of unemployed, housewife, or homemaker and (b) share a last name with at least one other donor to the same candidate. Shared last names do not prove a family relationship — common surnames may produce false matches. This grouping surfaces a pattern, not an assertion of specific relationships.</p>
-    <p><sup>3</sup> All data from $100+ contributions filed with the City of Torrance through December 31, 2025 via <a href="https://public.netfile.com/pub2/?aid=TOR" style="color:#999;">Torrance NetFile</a>. Contributions under $100 are not required to be itemized and are not included.</p>
-  </div>
+<div class="footnotes">
+  <p><sup>1</sup> "Business owners, professionals, and their family" includes donors with filed titles of: business owner, president, CEO, CFO, founder, executive, engineer, programmer, physician, doctor, attorney, real estate broker/agent/developer, property investor, financial planner, finance manager, CPA, architect, director, manager, consultant, pharmacist, banker, insurance agent, and accountant — as well as family members (see note 2). "Teachers, public servants, and service workers" includes: teacher, professor, librarian, police officer, mayor, mechanic, bank teller, pastoral assistant, sales, instructor, and similar titles. "Retired" and "not employed" are reported as filed. Two Chen donors (under 1% of dollars) did not fit any category and are excluded.</p>
+  <p><sup>2</sup> "Their family" identifies donors who (a) filed a job title of unemployed, housewife, or homemaker and (b) share a last name with at least one other donor to the same candidate. Shared last names do not prove a family relationship — common surnames may produce false matches. This grouping surfaces a pattern, not an assertion of specific relationships.</p>
+  <p><sup>3</sup> All data from $100+ contributions filed with the City of Torrance through December 31, 2025 via <a href="https://public.netfile.com/pub2/?aid=TOR">Torrance NetFile</a>. Contributions under $100 are not required to be itemized and are not included.</p>
 </div>
 
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<script src="page-data.js"></script>
+<script src="shared.js"></script>
 <script>
-Chart.register(ChartDataLabels);
-const red='#C0392B',green='#1D9E75';
-const txt='rgba(0,0,0,0.45)';
-const b={borderRadius:5,barPercentage:0.7};
-Chart.defaults.font.family="'DM Sans',sans-serif";
-const dlBase={font:{weight:600,size:12},formatter:v=>v?v+'%':''};
+(function() {
+  var d = PAGE_DATA.chen;
 
-new Chart(document.getElementById('geoChart'),{type:'bar',
-  data:{labels:['Torrance','Outside Torrance'],
-    datasets:[{label:'Chen',data:[45,55],backgroundColor:red,...b},{label:'Kalani',data:[85,15],backgroundColor:green,...b}]},
-  options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},datalabels:{anchor:'end',align:'end',color:txt,...dlBase},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'% of donors'}}},
-    scales:{x:{grid:{display:false},ticks:{color:txt,font:{size:12},maxRotation:0}},y:{display:false,max:100}}}});
+  createVerticalBarChart('geoChart', d.geo);
+  createHorizontalBarChart('classChart', d.occupation);
+  createHorizontalBarChart('contrastChart', Object.assign({}, d.contrast, { tickSize: 11 }));
 
-new Chart(document.getElementById('classChart'),{type:'bar',
-  data:{labels:['Business owners, professionals,\nand their family ¹','Teachers, public servants,\nand service workers ¹','Retired','Not employed'],
-    datasets:[{label:'Chen',data:[61,5,31,3],backgroundColor:red,...b},{label:'Kalani',data:[30,19,51,0],backgroundColor:green,...b}]},
-  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},datalabels:{anchor:'end',align:'end',color:txt,...dlBase},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'% of dollars'}}},
-    scales:{x:{display:false,max:85},y:{grid:{display:false},ticks:{color:txt,font:{size:10}}}}}});
+  document.getElementById('statRed').textContent = d.stats.maxedOutside.red;
+  document.getElementById('statGreen').textContent = d.stats.maxedOutside.green;
 
-new Chart(document.getElementById('contrastChart'),{type:'bar',
-  data:{labels:['Business owners, professionals,\nand their family','Teachers, public servants,\nservice workers'],
-    datasets:[{label:'Chen',data:[61,5],backgroundColor:red,...b},{label:'Kalani',data:[30,19],backgroundColor:green,...b}]},
-  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},datalabels:{anchor:'end',align:'end',color:txt,...dlBase},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'% of dollars'}}},
-    scales:{x:{display:false,max:85},y:{grid:{display:false},ticks:{color:txt,font:{size:11}}}}}});
-
-document.getElementById('dlBtn').addEventListener('click',function(){
-  const csv=`Full Name,City,Employer,Job Title,State,Zip,Total Donated 2026
-"Chek-Fong Tang","Alameda","Studio T-Sq., Inc.","Architect","CA","94502","$800.00"
-"Ramon Estrada","Alhambra","General Atomics","Engineer","CA","91801","$250.00"
-"Charles Fann","Arcadia","J. T. Capital, Inc.","Realtor","CA","91007","$300.00"
-"Mark Huang","Baltimore","Great Neck Global","General Manager","MD","21209","$1000.00"
-"Matthew Hwang","Brea","Puente hills Chrysler dodge jeep ram","Sales Manager","CA","92821","$1000.00"
-"Erica Lin","Cypress","Cox Automotive","UX designer","TX","77429","$1000.00"
-"Jonathan Hwang","Diamond Bar","Unemployed","Unemployed","CA","91765","$1000.00"
-"Kai Tu","Diamond Bar","Self","Engineer","CA","91765","$500.00"
-"Margaret Yen","El Monte","Retired","Retired","CA","91731","$100.00"
-"Hung Nguyen","El Segundo","Raytheon","Engineer","CA","90245","$100.00"
-"Alex Hwang","Fullerton","ARMJ Corporation","President","CA","92833","$1000.00"
-"Lydia Lin","Gardena","Retired","Retired","CA","90249","$1000.00"
-"Anna Muise","Gardena","Holland & Knight LLP","Paralegal","CA","90247","$1000.00"
-"Judy Wu","Gardena","Unemployed","Unemployed","CA","90249","$400.00"
-"Ti Chang","Gardena","ATKA Enterprises, Inc.","Owner","CA","90249","$750.00"
-"Hisako Lin","Gardena","Retired","Retired","CA","90249","$100.00"
-"Nelson Wu","Gardena","Unemployed","Unemployed","CA","90249","$100.00"
-"Steve Nakahira","Gardena","Retired","Retired","CA","90247","$100.00"
-"Mas Fukai","Gardena","Retired","Retired","CA","90248","$310.00"
-"Nozomi Hasegawa","Gardena","Retired","Retired","CA","90248","$250.00"
-"Joyce Meyer","Gardnerville","Retired","Retired","NV","89460","$200.00"
-"Shu Ho","Granada Hills","Raytheon","Engineer","CA","91344","$400.00"
-"Patrick Wang","Hacienda Heights","Route 66 Shooting Sports Park","Founder","CA","91745","$1000.00"
-"Hsin-I Lin","Hacienda Heights","Route 66 Shooting Sports Park","CFO","CA","91745","$1000.00"
-"Jade Lan","Hacienda Heights","Smart Factory Inc","Accountant","CA","91745","$100.00"
-"Jerry Heuer","Hermosa Beach","South Bay Lexus","President","CA","90254","$1000.00"
-"John Gong","Hermosa Beach","Reitred","Retired","CA","90254","$1000.00"
-"Jane Heuer","Hermosa Beach","Retired","Retired","CA","90254","$200.00"
-"James Hsu","I","Superior Communications Inc.","Consultant","CA","92603","$1000.00"
-"Fred Liao","Irvine, Tustin","Chenco","real estate investment","CA","92618","$1000.00"
-"Ann Hui","La Mirada","Retired","Retired","CA","90638","$1000.00"
-"Albert Lin","La Mirada","Pharmco","Pharmacist","CA","90638","$100.00"
-"Danny Kim","Lakewood","Self","Owner","CA","90712","$100.00"
-"Cindy Chen","Long Beach","Retired","Retired","CA","90814","$500.00"
-"Vivian Chou","Lomita","Retired","Retired","CA","90717","$1000.00"
-"Grace Gu","Lomita","Self","Owner","CA","90717","$700.00"
-"Thomas Chang","Los Angeles","Thomas Chang, CPA","C.P.A.","CA","90020","$500.00"
-"Anita Wong","Los Angeles","Long Beach Star, LLC","Real Estate Developer","CA","90020","$1000.00"
-"Sharon Lee","Los Angeles","Unemployed","Unemployed","CA","90020","$200.00"
-"Theresa Lin","Los Angeles","Retired","Retired","CA","90064","$100.00"
-"Dan Hom","Manhattan Beach","Bravo Music School","Owner","CA","90266","$750.00"
-"Russ Lesser","Manhattan Beach","Dive 'n Surf","Executive","CA","90266","$1000.00"
-"Tonny Lee","Manhattan Beach","South Bay Gastroenterology Med. Group","Physician","CA","90266","$1000.00"
-"James Righeimer","Newport Beach","Arbor Capital Partners","Chief Executive Officer","CA","92660","$1000.00"
-"Kathryn Robinson","Newport Coast","Retired","Retired","CA","92657","$1000.00"
-"Karen Kirkup","Osprey","Retired","Retired","OH","34229","$1000.00"
-"Benjamin Kirkup","Osprey","Retired","Retired","OH","34229","$1000.00"
-"Jackson Yang","Palos Verdes Estates","Seville Classics","Owner","CA","90274","$1000.00"
-"Julie Yang","Palos Verdes Estates","Seville Classics","CFO","CA","90274","$1000.00"
-"Richard Louie","Palos Verdes Estates","Retired","Retired","CA","90274","$525.00"
-"Cindy Wong","Palos Verdes Estates","Unemployed","Unemployed","CA","90274","$250.00"
-"Valerie Wong","Palos Verdes Estates","Unemployed","Unemployed","CA","90274","$250.00"
-"Hong Ser Palos Verdes","Palos Verdes Peninsula","Retired","Retired","CA","90274","$800.00"
-"Philip Chou","Rancho Palos Verdes","Northrop Grumman","Engineer","CA","90275","$200.00"
-"Jean Yue","Rancho Palos Verdes","Unemployed","Unemployed","CA","90275","$1000.00"
-"Felix Yu","Rancho Palos Verdes","City National Bank","Finance Manager","CA","90275","$1000.00"
-"Yvonne Liu","Rancho Palos Verdes","Unemployed","Unemployed","CA","90275","$500.00"
-"Sophia Hsu","Rancho Palos Verdes","Retired","Retired","CA","90275","$300.00"
-"Rose Lee","Rancho Palos Verdes","Retired","Retired","CA","90275","$300.00"
-"Michael Doherty","Rancho Palos Verdes","Retired","Retired","CA","90275","$250.00"
-"Winston Chen","Rancho Palos Verdes","Retired","Retired","CA","90275","$200.00"
-"Allen Yao","Rancho Palos Verdes","Unemployed","Unemployed","CA","90275","$200.00"
-"Mary Chen","Rancho Palos Verdes","Unemployed","Unemployed","CA","90275","$200.00"
-"Lillian Mak","Rancho Palos Verdes","Retired","Retired","CA","90275","$120.00"
-"Wanda Yao","Rancho Palos Verdes","Unemployed","Unemployed","CA","90275","$100.00"
-"Sung Chang","Rancho Palos Verdes","Unemployed","Unemployed","CA","90275","$100.00"
-"Arthur Hsieh","Rancho Palos Verdes, Torrance","Retired","Retired","CA","90275","$200.00"
-"Arnold Ng","Rancho Palos Verdes, Torrance","APEX Commercial Real Estate, Inc.","Realtor","CA","90275","$200.00"
-"Camellia Tseng","Redondo Beach","Retired","Retired","CA","90277","$1000.00"
-"Kenneth Thompson","Redondo Beach","Retired","Retired","CA","90278","$1000.00"
-"Gerry Andrade","Redondo Beach","Gerry Andrade & Associates","Wealth Management/CPA","CA","90278","$1000.00"
-"William Tseng","Redondo Beach","Reitred","Retired","CA","90277","$1000.00"
-"Maria Mattucci","Redondo Beach","Unemployed","Unemployed","CA","90277","$500.00"
-"Dan Fu","Redondo Beach","Northrop Grumman","Engineer","CA","90278","$200.00"
-"Allen Lee","Redondo Beach","Retired","Retired","CA","90277","$200.00"
-"Elaine Andrade","Redondo Beach","Retired","Retired","CA","90278","$200.00"
-"Michelle Christy","Redondo Beach","Pharmco","Pharmacist","CA","90277","$200.00"
-"Sue Y. Harada","Redondo Beach","Retired","Retired","CA","90277","$110.00"
-"Stan Levine","Redondo Beach","SELF EMPLOYEE","MEDICAL INSURANCE BROKER","CA","90278","$100.00"
-"Stephanie Klopfenstein","Redondo Beach","Klopfenstein & Associates, LLC","Attorney","CA","90278","$100.00"
-"Anne Hom","Redondo Beach","Unemployed","Unemployed","CA","90278","$100.00"
-"Susan Rhee","Redondo Beach","Self","Accountant","CA","90278","$100.00"
-"Jeng Gau","Rolling Hills Estate","Uniwell LLC","President","CA","90274","$600.00"
-"Judy Gau","Rolling Hills Estates","Unemployed","Unemployed","CA","90274","$200.00"
-"San Marino","San Marino","Pharmco","Pharmacist","CA","91108","$700.00"
-"Dennis Jang","South Pasadena","Allstate Insurance Co.","Quality Evaluator","CA","91030","$1000.00"
-"Aurelio Mattucci","Torrance","Aurelio Mattucci, Inc","Real Estate Broker","CA","90505","$300.00"
-"Jason Yao","Torrance","Preferred Bank","Banker","CA","90501","$200.00"
-"Grace Liu","Torrance","Northrop Grumman","Programer","CA","90501","$1000.00"
-"Alex See","Torrance","Raytheon","Engineer","CA","90501","$1000.00"
-"Robert Liu","Torrance","Kaiser Permanente","Physician","CA","90501","$1000.00"
-"Steve Tsai","Torrance","Self","Physician","CA","90501","$1000.00"
-"Sean Van Lingen","Torrance","VAN LINGEN BODY SHOP","Business Owner","CA","90501","$1000.00"
-"Wanda Chung","Torrance","Subway r Us","Owner","CA","90501","$1000.00"
-"Mark Tsuneishi","Torrance","Tsuneishi Insurance Agency","Business Owner","CA","90501","$1000.00"
-"Linda Wilson","Torrance","Rolling Hills Realty","real estate agent","CA","90501","$860.00"
-"Danny Ho","Torrance","Retired","Retired","CA","90501","$800.00"
-"Lily Lau","Torrance","Unemployed","Unemployed","CA","90501","$500.00"
-"Serena Wong","Torrance","Raytheon Technologies","Configuration Management","CA","90501","$900.00"
-"Steven Fechner","Torrance","Surf Management","Property Investor","CA","90501","$1000.00"
-"Mike Eng","Torrance","Retired","Retired","CA","90501","$500.00"
-"Sean Liu","Torrance","Long Beach Port","Mechanic","CA","90501","$1000.00"
-"Victor Tseng","Torrance","Retired","Retired","CA","90501","$500.00"
-"Susanna Won","Torrance","Unemployed","Unemployed","CA","90501","$300.00"
-"Kent Yoshiwara","Torrance","Retired","Retired","CA","90501","$500.00"
-"Angie Shao","Torrance","Northrop Grumman","Manufacturing planning and scheduling","CA","90501","$300.00"
-"David Nishizawa","Torrance","Retired","Retired","CA","90501","$300.00"
-"Bo Yun Chen","Torrance","Retired","Retired","CA","90504","$500.00"
-"David Yee","Torrance","Retired","Retired","CA","90501","$300.00"
-"Ling Hsieh","Torrance","Retired","Retired","CA","90501","$300.00"
-"Steven Lee","Torrance","Self","Insurance broker","CA","90503","$250.00"
-"Grace Lee","Torrance","Unemployed","Unemployed","CA","90503","$250.00"
-"Paul Chen","Torrance","Retired","Retired","CA","90503","$750.00"
-"Clark Custer","Torrance","Raytheon","Engineer","CA","90503","$220.00"
-"Tina Tchen","Torrance","Retired","Retired","CA","90503","$200.00"
-"Tomoko Otake","Torrance","Retired","Retired","CA","90504","$200.00"
-"Robert Otake","Torrance","Retired","Retired","CA","90504","$200.00"
-"Harry Zhu","Torrance","Self","Realtor","CA","90501","$160.00"
-"Richard Hu","Torrance","Bread of Life Church","Pastroal Assistant","CA","90501","$300.00"
-"Lloyd Nakanishi","Torrance","Raytheon","Engineer","CA","90501","$150.00"
-"Helen Ota","Torrance","Retired","Retired","CA","90503","$150.00"
-"Chris Hwang","Torrance","Preferred Bank","Teller","CA","90505","$150.00"
-"Jessie Chiang","Torrance","Retired","Retired","CA","90504","$300.00"
-"May Tan","Torrance","SAIC","Engineer","CA","90505","$250.00"
-"Kevin Shinno","Torrance","Retired","Retired","CA","90504","$100.00"
-"Glen Fukushima","Torrance","Retired","Retired","CA","90501","$200.00"
-"Doreen Lee","Torrance","Unemployed","Unemployed","CA","90501","$100.00"
-"Kiyomi Nakanishi","Torrance","Unemployed","Unemployed","CA","90501","$100.00"
-"Judy Nishimoto","Torrance","Retired","Retired","CA","90501","$100.00"
-"Shannon Chiang","Torrance","Unemployed","Unemployed","CA","90504","$200.00"
-"Michael Mauno","Torrance","Nordik Construction LLC","Owner","CA","90501","$100.00"
-"Michael Gero","Torrance","Self","Handyman","CA","90501","$100.00"
-"Debbie Saito-Naruse","Torrance","Retired","Retired","CA","90505","$100.00"
-"Bruce Blumberg","Torrance","Dolphin Realty","Broker/Owner","CA","90501","$100.00"
-"Mandy Goeppner","Torrance","FTS International Express","maneuver  assistant","CA","90505","$100.00"
-"Allisa Park","Torrance","Seoul Arts Academy","Art Teacher","CA","90501","$100.00"
-"Justin Yeom","Torrance","Seoul Arts Academy","Art Teacher","CA","90501","$100.00"
-"Cindy Lee","Torrance","Retired","Retired","CA","90504","$100.00"
-"Peter Lee","Torrance","Retired","Retired","CA","90501","$100.00"
-"Jennifer Wu","Torrance","Unemployed","Unemployed","CA","90505","$100.00"
-"Candace Chan","Torrance","Preferred Bank","Bank Examiner","CA","90501","$300.00"
-"Teresa Tseng","Torrance","Retired","Retired","CA","90501","$300.00"
-"Brian Chen","Torrance","Unemployed","Unemployed","CA","90501","$200.00"
-"Derek Li","Torrance","Unemployed","Unemployed","CA","90501","$200.00"
-"Dorothy Tseng","Torrance","Retired","Retired","CA","90501","$200.00"
-"Yuiko Yao","Torrance","Retired","Retired","CA","90501","$200.00"
-"Debbra Matsumoto","Torrance","Retired","Retired","CA","90501","$200.00"
-"James Lee","Torrance","Retired","Retired","CA","90503","$200.00"
-"Patricia Chen","Torrance","Retired","Retired","CA","90503","$200.00"
-"Amy Gong","Torrance","Unemployed","Unemployed","CA","90503","$100.00"
-"Elisa Choi","Torrance","Retired","Retired","CA","90503","$100.00"
-"Dorothy Lee","Torrance","Unemployed","Unemployed","CA","90503","$100.00"
-"Laura Lee","Torrance","Retired","Retired","CA","90503","$100.00"
-"Tetsuo Tsutsumi","Torrance","Retired","Retired","CA","90505","$500.00"
-"Danying Ma","Tustin","Unemployed","Unemployed","CA","92780","$1000.00"
-"Arun Bhumitra","Torrance, Rolling Hills","Arjay Plaza","Property Owner","CA","90274","$199.00"
-"Eric Schuchman","Torrance, Long Beach","LA County Assessor","Real Property Appraiser","CA","90501","$300.00"
-"Jeffrey Wu","Torrance, Manhattan Beach","Self","Engineer","CA","90501","$1000.00"
-"Jia Jih Lu","Yorba Linda, Ontario","General Atomics","Engineer","CA","92886","$100.00"
-"Naomi Gima","Gardena","Calle Mayor Middle School","Teacher","CA","90248","$900.00"
-"Alice Ong","Rancho Palos Verdes","Palos Verdes Peninsula Unified School District","Teacher","CA","90275","$300.00"`;
-
-  const blob=new Blob([csv],{type:'text/csv'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='george_chen_donors_2025.csv';
-  a.click();
-  URL.revokeObjectURL(a.href);
-});
-
-document.getElementById('dlBtnSK').addEventListener('click',function(){
-  const csv=`Full Name,City,Employer,Job Title,State,Zip,Total Donated 2026
-"Harriette Adelsman","Redondo Beach, Torrance","Retired","Retired","CA","90277","$1000.00"
-"Adam Schwartz","Torrance","AMS","Property Manager","CA","90501","$1000.00"
-"Frank Chang","Torrance","","Retired","CA","90505","$1000.00"
-"Patrick Furey","Torrance","City of Torrance","Mayor","CA","90503","$500.00"
-"Elizabeth Spatz","Torrance","Disney Consumer Prodicts","Librarian","CA","90505","$1000.00"
-"Russ Lesser","Manhattan Beach","Dive 'n Surf","Executive","CA","90266","$1000.00"
-"Cynthia L. Scotto","Redondo Beach","Retired","Retired","CA","90277","$1000.00"
-"Mary K. Hoffman","Torrance","","Retired","CA","90505","$250.00"
-"Pamela Popovich","Torrance, Redondo Beach","","Retired","CA","90277","$100.00"
-"Geoff Rizzo","Torrance","","Retired","CA","90503","$250.00"
-"Kirk Rossberg","Torrance, Redondo Beach","Torrance Bakery","President","CA","90501","$1000.00"
-"Rowan Foxwood","Torrance","","Retired","CA","90503","$1000.00"
-"Christopher Truman","Torrance","Maven Health","Software Engineer","CA","90503","$100.00"
-"Susan Niemeyer","Torrance","Los Angeles City College","Professor","CA","90503","$200.00"
-"Aamer Javaid","Torrance","PRL Aluminum Inc.","I.T Director","CA","90503","$250.00"
-"Bill Sutherland","Torrance","","Retired","CA","90501","$250.00"
-"Peter Lefevre","Torrance","California State University, Dominguez Hills","Senior Director, Corporate & Foundation Relations","CA","90503","$100.00"
-"James Titiriga","Torrance","Torrance Police","Sargent","CA","90501","$100.00"
-"George Issaians","Glendale","","Retired","CA","91202","$500.00"
-"Susan Gibson","Torrance","CSU","Professor","CA","90505","$200.00"
-"Dickey Amemiya","Torrance","","Retired","CA","90504","$200.00"
-"Randall Klinenberg","Torrance","","Retired","CA","90501","$150.00"
-"Linda Babcock","Torrance","","Retired","CA","90505","$100.00"
-"Keith Montoya","Torrance","","Retired","CA","90503","$100.00"
-"Mike Lewis","Torrance","City of Torrance","Police Services Supervisor","CA","90503","$100.00"
-"Patrice Lefevre","Torrance","Bookkeeping 4 You","President/Owner","CA","90503","$100.00"
-"Thomas Saulenas","San Mateo","Walgreens","Senior Analysts","CA","94402","$100.00"`;
-  const blob=new Blob([csv],{type:'text/csv'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='sharon_kalani_donors_2025.csv';
-  a.click();
-  URL.revokeObjectURL(a.href);
-});
+  setupAllDownloads('chen');
+})();
 </script>
 </body>
 </html>
