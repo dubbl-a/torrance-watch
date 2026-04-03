@@ -5,22 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Who Funds George Chen? — Torrance 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 </head>
 <body>
+<div class="top-accent"></div>
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <span class="site-nav-brand">Transparency for Torrance</span>
+    <a href="index.html" class="active">Mayor</a>
+    <a href="kaji_2026.html">District 1</a>
+    <a href="mattucci_2026.html">Treasurer</a>
+  </div>
+</nav>
 <div class="page">
 
 <div class="kicker">Torrance 2026 election</div>
 <h1>Who funds George Chen's campaign?</h1>
-<div class="dek">A look at the donors behind Chen's mayoral bid compared to Sharon Kalani's base of support.</div>
+<div class="dek">Donor data for the mayoral race, comparing George Chen and Sharon Kalani.</div>
 <div class="cross-nav"><a href="kaji_2026.html" target="_blank">See also: District 1 — Kaji vs. Kartsonis →</a></div>
 <div class="cross-nav"><a href="mattucci_2026.html" target="_blank">See also: Treasurer — Mattucci →</a></div>
 <div class="source">Itemized donations ($100+) filed through December 31, 2025<sup>3</sup></div>
 
 <div class="section">
   <div class="section-head">Where do the donors live?</div>
-  <div class="section-sub">Less than half of Chen's donors are Torrance residents. Kalani's donor base is overwhelmingly local.</div>
+  <div class="section-sub">45% of Chen's donors are Torrance residents. 85% of Kalani's are.</div>
   <div class="legend">
     <span><i style="background:#C0392B"></i>Chen</span>
     <span><i style="background:#1D9E75"></i>Kalani</span>
@@ -29,14 +38,14 @@
 </div>
 
 <div class="section">
-  <div class="section-head">Who's giving the legal maximum?</div>
-  <div class="section-sub">Torrance caps individual donations at $1,000 per election. Most of Chen's maxed-out donors are from outside Torrance. Most of Kalani's are local.</div>
+  <div class="section-head">Donors at the legal maximum</div>
+  <div class="section-sub">Torrance caps individual donations at $1,000 per election. Percentage of each candidate's maxed-out donors who are from outside Torrance:</div>
   <div class="stat-row">
-    <div class="stat">
+    <div class="stat stat-red">
       <div class="stat-label">Chen's maxed-out donors from outside Torrance</div>
       <div class="stat-num red" id="statRed"></div>
     </div>
-    <div class="stat">
+    <div class="stat stat-green">
       <div class="stat-label">Kalani's maxed-out donors from outside Torrance</div>
       <div class="stat-num green" id="statGreen"></div>
     </div>
@@ -54,8 +63,8 @@
 </div>
 
 <div class="section">
-  <div class="section-head">Who's behind the money?</div>
-  <div class="section-sub">Isolating the two occupation groups from the chart above: business owners, professionals, and their family<sup>2</sup> vs. teachers, public servants, and service workers.</div>
+  <div class="section-head">Occupation comparison</div>
+  <div class="section-sub">The two occupation groups from the chart above shown side by side: business owners, professionals, and their family<sup>2</sup> vs. teachers, public servants, and service workers.</div>
   <div class="legend">
     <span><i style="background:#C0392B"></i>Chen</span>
     <span><i style="background:#1D9E75"></i>Kalani</span>
@@ -64,23 +73,27 @@
 </div>
 
 <div class="section">
-  <div class="section-head">Notable details</div>
+  <div class="section-head">Additional findings</div>
   <div class="callout-grid">
-    <div class="callout">
-      <div class="callout-title">8% from family members maximizing contributions</div>
-      <div class="callout-body">23 Chen donors filed as not employed and share a last name with another Chen donor.<sup>2</sup> Torrance limits individuals to $1,000. Additional household members filing separately allows a family to multiply its total contribution. Kalani has zero donors in this category.</div>
+    <div class="callout accent-red">
+      <div class="callout-num">01</div>
+      <div class="callout-title">8% of Chen's donor dollars from shared-surname donors</div>
+      <div class="callout-body">23 Chen donors filed as not employed and share a last name with at least one other Chen donor.<sup>2</sup> Torrance limits individual donations to $1,000. Kalani has zero donors in this category.</div>
     </div>
-    <div class="callout">
+    <div class="callout accent-amber">
+      <div class="callout-num">02</div>
       <div class="callout-title">Out-of-state donors</div>
-      <div class="callout-body">Chen received contributions from donors in Maryland, Texas, Ohio, and Nevada. Kalani received none from out of state.</div>
+      <div class="callout-body">Chen received contributions from donors in Maryland, Texas, Ohio, and Nevada. Kalani's filings show none from out of state.</div>
     </div>
-    <div class="callout">
+    <div class="callout accent-slate">
+      <div class="callout-num">03</div>
       <div class="callout-title">Real estate industry donors</div>
-      <div class="callout-body">Real estate and property professionals contributed to Chen's campaign, including his own slate-mate Aurelio Mattucci, a real estate broker.</div>
+      <div class="callout-body">Real estate and property professionals contributed to Chen's campaign. Donors include Aurelio Mattucci, a real estate broker who is also running for City Treasurer.</div>
     </div>
     <div class="callout">
-      <div class="callout-title">Outside donors give more per person</div>
-      <div class="callout-body">Chen's non-Torrance donors contributed 24% more per person on average than his Torrance-based donors.</div>
+      <div class="callout-num">04</div>
+      <div class="callout-title">Average donation by geography</div>
+      <div class="callout-body">Chen's non-Torrance donors averaged 24% more per person than his Torrance-based donors.</div>
     </div>
   </div>
 </div>

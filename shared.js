@@ -1,7 +1,7 @@
 /* Torrance 2026 — shared Chart.js setup and helpers */
 
 Chart.register(ChartDataLabels);
-Chart.defaults.font.family = "'DM Sans',sans-serif";
+Chart.defaults.font.family = "'Source Sans 3',sans-serif";
 
 /* Shared palette & base config */
 var COLORS = { red: '#C0392B', green: '#1D9E75', gray: '#A8A8A8' };
@@ -36,6 +36,7 @@ function createVerticalBarChart(id, cfg) {
         datalabels: { anchor: 'end', align: 'end', color: TXT, font: DATALABEL_BASE.font, formatter: DATALABEL_BASE.formatter },
         tooltip: { callbacks: { label: function(c) { return c.dataset.label + ': ' + c.raw + (cfg.tooltipSuffix || '% of donors'); } } }
       },
+      animation: { duration: 800, easing: 'easeOutQuart', delay: function(ctx) { return ctx.dataIndex * 120 + ctx.datasetIndex * 200; } },
       scales: {
         x: { grid: { display: false }, ticks: { color: TXT, font: { size: 12 }, maxRotation: 0 } },
         y: { display: false, max: cfg.max || 100 }
@@ -65,6 +66,7 @@ function createHorizontalBarChart(id, cfg) {
         datalabels: Object.assign({ anchor: 'end', align: 'end', color: dlColor, font: DATALABEL_BASE.font, formatter: DATALABEL_BASE.formatter }, dlOverrides),
         tooltip: { callbacks: { label: function(c) { return (cfg.datasets.length > 1 ? c.dataset.label + ': ' : '') + c.raw + (cfg.tooltipSuffix || '% of dollars'); } } }
       },
+      animation: { duration: 800, easing: 'easeOutQuart', delay: function(ctx) { return ctx.dataIndex * 120 + ctx.datasetIndex * 200; } },
       scales: {
         x: { display: false, max: cfg.max || 85 },
         y: { grid: { display: false }, ticks: { color: TXT, font: { size: cfg.tickSize || 10 } } }
@@ -101,3 +103,73 @@ function setupAllDownloads(raceKey) {
     setupCsvDownload(entry.btnId, entry.file, entry.filename);
   });
 }
+
+/**
+ * Scroll-triggered section reveal using IntersectionObserver.
+ */
+function initScrollReveal() {
+  var targets = document.querySelectorAll('.section, .data-section, .footnotes');
+  if (!('IntersectionObserver' in window)) {
+    targets.forEach(function(el) { el.classList.add('revealed'); });
+    return;
+  }
+  var delay = 0;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        el.style.transitionDelay = delay + 'ms';
+        delay += 80;
+        el.classList.add('revealed');
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  targets.forEach(function(el) { observer.observe(el); });
+}
+
+/**
+ * Animate a stat number counting up (supports "76%" format).
+ */
+function animateStatNumber(el) {
+  var raw = el.textContent.trim();
+  var suffix = raw.replace(/[\d.]/g, '');
+  var target = parseFloat(raw);
+  if (isNaN(target)) return;
+  var duration = 1200;
+  var start = null;
+  el.textContent = '0' + suffix;
+  function step(ts) {
+    if (!start) start = ts;
+    var progress = Math.min((ts - start) / duration, 1);
+    var eased = 1 - Math.pow(1 - progress, 3);
+    var current = Math.round(eased * target);
+    el.textContent = current + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+/**
+ * Observe stat numbers and trigger count-up when visible.
+ */
+function initStatCountUp() {
+  var stats = document.querySelectorAll('.stat-num');
+  if (!stats.length) return;
+  if (!('IntersectionObserver' in window)) return;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        animateStatNumber(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  stats.forEach(function(el) { observer.observe(el); });
+}
+
+/* Auto-initialize on DOM ready */
+document.addEventListener('DOMContentLoaded', function() {
+  initScrollReveal();
+  initStatCountUp();
+});
