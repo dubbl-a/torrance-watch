@@ -1,9 +1,25 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SignupForm from '../../components/SignupForm.astro';
+import { getCollection } from 'astro:content';
 
-// TODO: Import getCollection('candidates') and group by race
-// TODO: Display candidate cards in a grid, grouped by office
-// TODO: Each card links to /candidates/[slug]
+const candidates = await getCollection('candidates');
+
+// Group by office, maintaining a stable order
+const raceOrder = ['Mayor', 'District 1 Council', 'City Treasurer'];
+const grouped = new Map<string, typeof candidates>();
+for (const office of raceOrder) {
+  grouped.set(office, []);
+}
+for (const c of candidates) {
+  const list = grouped.get(c.data.office);
+  if (list) list.push(c);
+}
+
+// TODO Sprint 2: candidate photo thumbnails in cards
+// TODO Sprint 2: short bio excerpt below name
+// TODO Sprint 2: endorsement count badge
+// TODO Sprint 2: filter/search by name or office
 ---
 
 <BaseLayout title="Candidates" description="Candidates in the Torrance 2026 municipal election.">
@@ -11,14 +27,39 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     <div class="kicker">Torrance 2026 election</div>
     <h1>Candidates</h1>
     <div class="dek">
-      Profiles for every candidate on the June 2, 2026 ballot.
+      Every candidate on the June 2, 2026 ballot. Equal treatment,
+      same depth, same format.
+    </div>
+    <div class="source">
+      Full profiles coming before June 2.
     </div>
 
-    <div class="section revealed">
-      <div class="section-head">Coming soon</div>
+    {raceOrder.map((office) => {
+      const list = grouped.get(office) || [];
+      return (
+        <div class="section">
+          <div class="section-head">{office}</div>
+          <div class="stat-row">
+            {list.map((c) => (
+              <a href={`/candidates/${c.data.slug}`} class="stat" style="text-decoration:none;">
+                <div class="stat-label" style="font-weight:600;color:#555;">{c.data.name}</div>
+                <div class="stat-note" style="margin-top:4px;">View profile &rarr;</div>
+              </a>
+            ))}
+          </div>
+        </div>
+      );
+    })}
+
+    <div class="section">
+      <div class="section-head">Stay informed</div>
       <div class="section-sub">
-        Candidate profiles are being built. Check back soon.
+        Get an email when candidate profiles go live.
       </div>
+      <SignupForm />
+      <p style="font-size:12px;color:#999;margin-top:0.75rem;line-height:1.5;">
+        We don't share your email. We don't send anything else. Unsubscribe any time.
+      </p>
     </div>
   </div>
 </BaseLayout>

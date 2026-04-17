@@ -1,11 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SignupForm from '../../components/SignupForm.astro';
 import { getCollection } from 'astro:content';
-
-// TODO: Implement getStaticPaths from candidates collection
-// TODO: Design candidate page layout (Sprint 2)
-// TODO: Include bio, endorsements, voting record sections
-// TODO: Link back to race finance page
 
 export async function getStaticPaths() {
   const candidates = await getCollection('candidates');
@@ -16,19 +12,48 @@ export async function getStaticPaths() {
 }
 
 const { candidate } = Astro.props;
+const c = candidate.data;
+
+// Build link back to race finance page
+const financeHref = `/finance/2026/${c.raceSlug}`;
+
+// TODO Sprint 2: sourced bio paragraphs (from c.shortBio and extended content)
+// TODO Sprint 2: key positions section (from c.keyPositions array)
+// TODO Sprint 2: endorsement tracking (from c.endorsements array)
+// TODO Sprint 2: sources consulted list (from c.sourcesConsulted array)
+// TODO Sprint 2: candidate photo (from c.photoSrc)
+// TODO Sprint 2: side-by-side comparison link to opponent
 ---
 
-<BaseLayout title={candidate.data.name} description={`Profile for ${candidate.data.name}, candidate for ${candidate.data.office}.`}>
+<BaseLayout title={c.name} description={`Profile for ${c.name}, candidate for ${c.office} in the Torrance 2026 election.`}>
   <div class="page">
-    <div class="kicker">{candidate.data.office}</div>
-    <h1>{candidate.data.name}</h1>
+    <div class="kicker">{c.office}</div>
+    <h1>{c.name}</h1>
+    <div class="dek">
+      Candidate for {c.office}, June 2, 2026 municipal election.
+    </div>
+    <div class="source">
+      <a href={financeHref} style="color:#999;">View campaign finance data for this race &rarr;</a>
+    </div>
 
-    <!-- TODO: Candidate page design is TBD for Sprint 2 -->
-    <div class="section revealed">
-      <div class="section-head">Profile coming soon</div>
+    <div class="section">
+      <div class="section-head">Full profile coming before June 2</div>
       <div class="section-sub">
-        This candidate profile is being built.
+        This page will include sourced biographical information, key positions,
+        endorsements, and a list of public sources consulted. All candidates in
+        each race receive equal treatment: same depth, same tone, same format.
       </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">Stay informed</div>
+      <div class="section-sub">
+        Get an email when candidate profiles go live.
+      </div>
+      <SignupForm />
+      <p style="font-size:12px;color:#999;margin-top:0.75rem;line-height:1.5;">
+        We don't share your email. We don't send anything else. Unsubscribe any time.
+      </p>
     </div>
   </div>
 </BaseLayout>

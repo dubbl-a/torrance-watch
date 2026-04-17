@@ -96,10 +96,13 @@ const candidates = defineCollection({
     slug: z.string(),
     office: z.string(),
     raceSlug: z.string(),
-    bio: z.string().optional(),
-    website: z.string().optional(),
+    // Sprint 2 fields -- all optional, do not tighten without checking with Aaron
+    shortBio: z.string().optional(),
+    keyPositions: z.array(z.string()).optional(),
     endorsements: z.array(z.string()).optional(),
-    photo: z.string().optional(),
+    sourcesConsulted: z.array(z.string()).optional(),
+    website: z.string().optional(),
+    photoSrc: z.string().optional(),
   }),
 });
 
