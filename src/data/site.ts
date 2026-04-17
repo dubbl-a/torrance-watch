@@ -5,8 +5,9 @@ export const description =
 
 export const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'Finance', href: '/finance/2026/mayor-2026' },
-  { label: 'Candidates', href: '/candidates' },
+  { label: 'Mayor', href: '/finance/2026/mayor-2026' },
+  { label: 'District 1', href: '/finance/2026/district-1-2026' },
+  { label: 'Treasurer', href: '/finance/2026/treasurer-2026' },
   { label: 'About', href: '/about' },
 ];
 

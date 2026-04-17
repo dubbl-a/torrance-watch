@@ -1,0 +1,54 @@
+---
+/**
+ * PlotlyChart — reusable wrapper for Plotly.js charts.
+ *
+ * Renders a div with the given id, then calls Plotly.newPlot
+ * once the Plotly CDN script has loaded. The CDN script must be
+ * included on any page that uses this component (loaded once per page
+ * in the race page template, not here, to avoid duplicate loads).
+ *
+ * Props:
+ *   id       — unique DOM id for the chart div
+ *   data     — Plotly data array (traces)
+ *   layout   — Plotly layout object
+ *   config   — Plotly config object (modebar, logo, etc.)
+ *   height   — CSS height string (e.g. "220px")
+ */
+
+interface Props {
+  id: string;
+  data: unknown[];
+  layout: Record<string, unknown>;
+  config?: Record<string, unknown>;
+  height?: string;
+}
+
+const { id, data, layout, config = {}, height = '220px' } = Astro.props;
+
+const mergedConfig = {
+  displayModeBar: false,
+  displaylogo: false,
+  responsive: true,
+  ...config,
+};
+---
+
+<div class="chart-wrap">
+  <slot />
+  <div id={id} style={`width:100%;height:${height};`}></div>
+</div>
+
+<script is:inline define:vars={{ id, data, layout, mergedConfig }}>
+  function renderChart() {
+    if (typeof Plotly !== 'undefined') {
+      Plotly.newPlot(id, data, layout, mergedConfig);
+    } else {
+      setTimeout(renderChart, 50);
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderChart);
+  } else {
+    renderChart();
+  }
+</script>

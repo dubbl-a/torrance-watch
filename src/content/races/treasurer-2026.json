@@ -1,0 +1,86 @@
+{
+  "slug": "treasurer-2026",
+  "office": "City Treasurer",
+  "electionDate": "2026-06-02",
+  "candidateSlugs": ["aurelio-mattucci"],
+  "headline": "Who funds Aurelio Mattucci's campaign?",
+  "dek": "Donor data for the City Treasurer race. Mattucci is a real estate broker and current District 5 councilmember.",
+  "source": "Itemized donations ($100+) filed through December 31, 2025<sup>3</sup>",
+  "sections": {
+    "geo": {
+      "heading": "Where do the donors live?",
+      "sub": "58% of Mattucci's donors are Torrance residents. 42% are from outside the city.",
+      "orientation": "horizontal",
+      "height": "100px",
+      "tickSize": 12,
+      "datalabelColor": "#1a1a1a",
+      "chart": {
+        "labels": ["Torrance", "Not Torrance"],
+        "datasets": [
+          { "label": "Mattucci", "data": [58, 42], "color": ["#C0392B", "#A8A8A8"] }
+        ],
+        "max": 72
+      }
+    },
+    "occupation": {
+      "heading": "Where do the donor dollars come from?",
+      "sub": "Mattucci's donor dollars grouped by occupation as reported on their filings.<sup>1</sup>",
+      "height": "220px",
+      "datalabelColor": "#1a1a1a",
+      "chart": {
+        "labels": [
+          "Business owners, professionals,\nand their family \u00b9",
+          "Teachers, public servants,\nand service workers \u00b9",
+          "Retired",
+          "Not employed"
+        ],
+        "datasets": [
+          { "label": "Mattucci", "data": [66, 15, 12, 7], "color": ["#C0392B", "#2E7D6A", "#5B7FA5", "#A8A8A8"] }
+        ],
+        "max": 82
+      }
+    }
+  },
+  "csvFiles": [
+    { "label": "Download Mattucci donor data (CSV)", "file": "/data/finance-2026/aurelio_mattucci.csv", "filename": "mattucci_donors_2026.csv" }
+  ],
+  "callouts": [
+    {
+      "number": "01",
+      "title": "21% of donor dollars from real estate",
+      "body": "Ten donors filed with real estate\u2013related titles \u2014 broker, agent, realtor, property owner, real estate investment. One donor listed \"Mattucci Real Estate\" as their employer.",
+      "accent": "accent-red"
+    },
+    {
+      "number": "02",
+      "title": "19% of dollars from donors who also contributed to George Chen",
+      "body": "Seven Mattucci donors also contributed to Chen's mayoral campaign, accounting for 19% of Mattucci's donor dollars. Shared donors include real estate and property professionals.",
+      "accent": "accent-amber"
+    },
+    {
+      "number": "03",
+      "title": "57% of maxed-out donors from outside Torrance",
+      "body": "Four of Mattucci's seven $1,000 donors listed addresses outside the city. Two \u2014 James Righeimer (CEO) and Tristan Harris (Real Estate) \u2014 listed the same Newport Beach employer, Arbor Capital Partners.",
+      "accent": "accent-slate"
+    },
+    {
+      "number": "04",
+      "title": "Average donation by geography",
+      "body": "Mattucci's non-Torrance donors averaged 34% more per person than his Torrance-based donors."
+    }
+  ],
+  "footnotes": [
+    {
+      "number": 1,
+      "body": "\"Business owners, professionals, and their family\" includes donors with filed titles of: business owner, president, CEO, CFO, founder, executive, engineer, programmer, physician, doctor, attorney, real estate broker/agent/developer, property owner, property investor, financial planner, finance manager, CPA, architect, director, manager, consultant, pharmacist, banker, insurance agent, and accountant \u2014 as well as family members (see note 2). \"Teachers, public servants, and service workers\" includes: teacher, professor, librarian, police officer, mayor, mechanic, bank teller, pastoral assistant, sales, instructor, coach, court reporter, firearms instructor, and similar titles. \"Retired\" and \"not employed\" are reported as filed."
+    },
+    {
+      "number": 2,
+      "body": "\"Their family\" identifies donors who (a) filed a job title of unemployed, housewife, or homemaker and (b) share a last name with at least one other donor to the same candidate. Shared last names do not prove a family relationship \u2014 common surnames may produce false matches. This grouping surfaces a pattern, not an assertion of specific relationships."
+    },
+    {
+      "number": 3,
+      "body": "All data from $100+ contributions filed with the City of Torrance through December 31, 2025 via <a href=\"https://public.netfile.com/pub2/?aid=TOR\">Torrance NetFile</a>. Contributions under $100 are not required to be itemized and are not included."
+    }
+  ]
+}

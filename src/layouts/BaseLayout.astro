@@ -8,6 +8,8 @@ interface Props {
 
 const { title, description } = Astro.props;
 const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath.startsWith(href);
 ---
 
 <!DOCTYPE html>
@@ -26,7 +28,7 @@ const currentPath = Astro.url.pathname;
     <div class="site-nav-inner">
       <a href="/" class="site-nav-brand">{siteName}</a>
       {navLinks.map((link) => (
-        <a href={link.href} class={currentPath === link.href ? 'active' : ''}>
+        <a href={link.href} class={isActive(link.href) ? 'active' : ''}>
           {link.label}
         </a>
       ))}
@@ -42,22 +44,56 @@ const currentPath = Astro.url.pathname;
   </footer>
 
   <script is:inline>
-    // Scroll reveal — ported from legacy/shared.js
+    // Scroll reveal with staggered delay — ported from legacy/shared.js
     (function () {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add('revealed');
-              observer.unobserve(e.target);
-            }
-          });
-        },
-        { threshold: 0.1 }
-      );
-      document.querySelectorAll('.section, .data-section, .footnotes').forEach((el) => {
+      var delay = 0;
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var el = entry.target;
+            el.style.transitionDelay = delay + 'ms';
+            delay += 80;
+            el.classList.add('revealed');
+            observer.unobserve(el);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.section, .data-section, .footnotes').forEach(function (el) {
         observer.observe(el);
       });
+    })();
+
+    // Stat number count-up animation — ported from legacy/shared.js
+    (function () {
+      function animateStatNumber(el) {
+        var raw = el.textContent.trim();
+        var suffix = raw.replace(/[\d.]/g, '');
+        var target = parseFloat(raw);
+        if (isNaN(target)) return;
+        var duration = 1200;
+        var start = null;
+        el.textContent = '0' + suffix;
+        function step(ts) {
+          if (!start) start = ts;
+          var progress = Math.min((ts - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          var current = Math.round(eased * target);
+          el.textContent = current + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+      var stats = document.querySelectorAll('.stat-num');
+      if (!stats.length) return;
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            animateStatNumber(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      stats.forEach(function (el) { observer.observe(el); });
     })();
   </script>
 </body>

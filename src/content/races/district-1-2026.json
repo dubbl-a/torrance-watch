@@ -1,0 +1,120 @@
+{
+  "slug": "district-1-2026",
+  "office": "District 1 Council",
+  "electionDate": "2026-06-02",
+  "candidateSlugs": ["jon-kaji", "david-kartsonis"],
+  "headline": "Who funds Jon Kaji\u2019s campaign?",
+  "dek": "Donor data for the District 1 council race, comparing Jon Kaji and David Kartsonis.",
+  "source": "Itemized donations ($100+) filed through December 31, 2025<sup>3</sup>",
+  "sections": {
+    "geo": {
+      "heading": "Where do the donors live?",
+      "sub": "31% of Kaji\u2019s donors are Torrance residents. 76% of Kartsonis\u2019s are.",
+      "orientation": "vertical",
+      "height": "180px",
+      "legend": [
+        { "label": "Kaji", "color": "#C0392B" },
+        { "label": "Kartsonis", "color": "#1D9E75" }
+      ],
+      "chart": {
+        "labels": ["Torrance", "Outside Torrance"],
+        "datasets": [
+          { "label": "Kaji", "data": [31, 69], "color": "#C0392B" },
+          { "label": "Kartsonis", "data": [76, 24], "color": "#1D9E75" }
+        ]
+      }
+    },
+    "stats": {
+      "heading": "Donors at the legal maximum",
+      "sub": "Torrance caps individual donations at $1,000 per election. Percentage of each candidate\u2019s maxed-out donors who are from outside Torrance:",
+      "cards": [
+        { "variant": "stat-red", "label": "Kaji\u2019s maxed-out donors from outside Torrance", "value": "93%", "valueClass": "red" },
+        { "variant": "stat-green", "label": "Kartsonis\u2019s maxed-out donors from outside Torrance", "value": "0%", "valueClass": "green" }
+      ]
+    },
+    "occupation": {
+      "heading": "Where do the donor dollars come from?",
+      "sub": "Each candidate\u2019s donor dollars grouped by occupation as reported on their filings.<sup>1</sup>",
+      "height": "240px",
+      "legend": [
+        { "label": "Kaji", "color": "#C0392B" },
+        { "label": "Kartsonis", "color": "#1D9E75" }
+      ],
+      "chart": {
+        "labels": [
+          "Business owners, professionals,\nand their family \u00b9",
+          "Teachers, public servants,\nand service workers \u00b9",
+          "Retired",
+          "Not employed"
+        ],
+        "datasets": [
+          { "label": "Kaji", "data": [67, 6, 23, 5], "color": "#C0392B" },
+          { "label": "Kartsonis", "data": [41, 17, 43, 0], "color": "#1D9E75" }
+        ]
+      }
+    },
+    "contrast": {
+      "heading": "Occupation comparison",
+      "sub": "The two occupation groups from the chart above shown side by side: business owners, professionals, and their family<sup>2</sup> vs. teachers, public servants, and service workers.",
+      "height": "180px",
+      "legend": [
+        { "label": "Kaji", "color": "#C0392B" },
+        { "label": "Kartsonis", "color": "#1D9E75" }
+      ],
+      "chart": {
+        "labels": [
+          "Business owners, professionals,\nand their family",
+          "Teachers, public servants,\nservice workers"
+        ],
+        "datasets": [
+          { "label": "Kaji", "data": [67, 6], "color": "#C0392B" },
+          { "label": "Kartsonis", "data": [41, 17], "color": "#1D9E75" }
+        ],
+        "tickSize": 11
+      }
+    }
+  },
+  "csvFiles": [
+    { "label": "Download Kaji donor data (CSV)", "file": "/data/finance-2026/jon_kaji.csv", "filename": "jon_kaji_donors_2025.csv" },
+    { "label": "Download Kartsonis donor data (CSV)", "file": "/data/finance-2026/david_kartsonis.csv", "filename": "david_kartsonis_donors_2025.csv" }
+  ],
+  "callouts": [
+    {
+      "number": "01",
+      "title": "25% of donor dollars from real estate",
+      "body": "Seven real estate and property professionals contributed to Kaji, including Tommy Murakoshi, who listed Kaji &amp; Associates as his employer, and Aurelio Mattucci, who is also running for City Treasurer.",
+      "accent": "accent-red"
+    },
+    {
+      "number": "02",
+      "title": "Shared donors across slate",
+      "body": "Mattucci donated to both Kaji and George Chen\u2019s mayoral campaign. For comparison, see <a href=\"/finance/2026/mayor-2026\" style=\"color:#9E3A3A;\">Chen\u2019s donor geography</a>.",
+      "accent": "accent-amber"
+    },
+    {
+      "number": "03",
+      "title": "Out-of-state donors",
+      "body": "Kaji received contributions from donors in Hawaii, Colorado, Washington, and Texas. Kartsonis\u2019s filings show none from outside California.",
+      "accent": "accent-slate"
+    },
+    {
+      "number": "04",
+      "title": "Average donation by geography",
+      "body": "Kaji\u2019s non-Torrance donors averaged 69% more per person than his Torrance-based donors."
+    }
+  ],
+  "footnotes": [
+    {
+      "number": 1,
+      "body": "\u201cBusiness owners, professionals, and their family\u201d includes donors with filed titles of: business owner, president, CEO, CFO, founder, executive, engineer, programmer, physician, doctor, attorney, real estate broker/agent/developer, property investor, financial planner, finance manager, CPA, architect, director, manager, consultant, pharmacist, banker, insurance agent, and accountant\u2009\u2014\u2009as well as family members (see note 2). \u201cTeachers, public servants, and service workers\u201d includes: teacher, professor, librarian, police officer, mayor, mechanic, bank teller, pastoral assistant, sales, instructor, and similar titles. \u201cRetired\u201d and \u201cnot employed\u201d are reported as filed."
+    },
+    {
+      "number": 2,
+      "body": "\u201cTheir family\u201d identifies donors who (a) filed a job title of unemployed, housewife, or homemaker and (b) share a last name with at least one other donor to the same candidate. Shared last names do not prove a family relationship\u2009\u2014\u2009common surnames may produce false matches. This grouping surfaces a pattern, not an assertion of specific relationships."
+    },
+    {
+      "number": 3,
+      "body": "All data from $100+ contributions filed with the City of Torrance through December 31, 2025 via <a href=\"https://public.netfile.com/pub2/?aid=TOR\">Torrance NetFile</a>. Contributions under $100 are not required to be itemized and are not included."
+    }
+  ]
+}
