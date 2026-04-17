@@ -1,0 +1,68 @@
+---
+import { siteName, navLinks, footerCopy } from '../data/site';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} — {siteName}</title>
+  {description && <meta name="description" content={description} />}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="top-accent"></div>
+  <nav class="site-nav">
+    <div class="site-nav-inner">
+      <a href="/" class="site-nav-brand">{siteName}</a>
+      {navLinks.map((link) => (
+        <a href={link.href} class={currentPath === link.href ? 'active' : ''}>
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+
+  <slot />
+
+  <footer class="page" style="padding-top:0;padding-bottom:2rem;">
+    <div class="footnotes revealed" style="margin-top:3rem;">
+      <p>{footerCopy}</p>
+    </div>
+  </footer>
+
+  <script is:inline>
+    // Scroll reveal — ported from legacy/shared.js
+    (function () {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('revealed');
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+      document.querySelectorAll('.section, .data-section, .footnotes').forEach((el) => {
+        observer.observe(el);
+      });
+    })();
+  </script>
+</body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

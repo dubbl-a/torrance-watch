@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// TODO: Import getCollection('candidates') and group by race
+// TODO: Display candidate cards in a grid, grouped by office
+// TODO: Each card links to /candidates/[slug]
+---
+
+<BaseLayout title="Candidates" description="Candidates in the Torrance 2026 municipal election.">
+  <div class="page">
+    <div class="kicker">Torrance 2026 election</div>
+    <h1>Candidates</h1>
+    <div class="dek">
+      Profiles for every candidate on the June 2, 2026 ballot.
+    </div>
+
+    <div class="section revealed">
+      <div class="section-head">Coming soon</div>
+      <div class="section-sub">
+        Candidate profiles are being built. Check back soon.
+      </div>
+    </div>
+  </div>
+</BaseLayout>

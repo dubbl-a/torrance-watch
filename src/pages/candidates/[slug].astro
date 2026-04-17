@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// TODO: Implement getStaticPaths from candidates collection
+// TODO: Design candidate page layout (Sprint 2)
+// TODO: Include bio, endorsements, voting record sections
+// TODO: Link back to race finance page
+
+export async function getStaticPaths() {
+  const candidates = await getCollection('candidates');
+  return candidates.map((candidate) => ({
+    params: { slug: candidate.data.slug },
+    props: { candidate },
+  }));
+}
+
+const { candidate } = Astro.props;
+---
+
+<BaseLayout title={candidate.data.name} description={`Profile for ${candidate.data.name}, candidate for ${candidate.data.office}.`}>
+  <div class="page">
+    <div class="kicker">{candidate.data.office}</div>
+    <h1>{candidate.data.name}</h1>
+
+    <!-- TODO: Candidate page design is TBD for Sprint 2 -->
+    <div class="section revealed">
+      <div class="section-head">Profile coming soon</div>
+      <div class="section-sub">
+        This candidate profile is being built.
+      </div>
+    </div>
+  </div>
+</BaseLayout>

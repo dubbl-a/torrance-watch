@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { description } from '../data/site';
+---
+
+<BaseLayout title="Home" description={description}>
+  <div class="page">
+    <div class="kicker">Torrance 2026 election</div>
+    <h1>Torrance Watch</h1>
+    <div class="dek">
+      Nonpartisan civic reference for Torrance. Starting with campaign finance.
+      Voter guide coming before June 2.
+    </div>
+    <div class="source">
+      Following the mayor, three council races, and treasurer.
+    </div>
+
+    <div class="section revealed">
+      <div class="section-head">Campaign finance tracker</div>
+      <div class="section-sub">
+        Who funds whom? Donor data from public filings, broken down by geography,
+        occupation, and contribution size.
+      </div>
+      <a href="/finance/2026/mayor-2026" class="dl-btn">Mayor race</a>
+    </div>
+
+    <div class="section revealed">
+      <div class="section-head">Coming soon</div>
+      <div class="section-sub">
+        Candidate profiles, voting records, and a voter guide for the
+        June 2, 2026 municipal election.
+      </div>
+    </div>
+  </div>
+</BaseLayout>

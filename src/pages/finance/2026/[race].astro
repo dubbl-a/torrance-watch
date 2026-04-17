@@ -1,0 +1,31 @@
+---
+import RaceLayout from '../../../layouts/RaceLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const races = await getCollection('races');
+  return races.map((race) => ({
+    params: { race: race.data.slug },
+    props: { race },
+  }));
+}
+
+const { race } = Astro.props;
+---
+
+<RaceLayout
+  title={race.data.office}
+  kicker="Torrance 2026 election"
+  headline={race.data.office}
+  dek={`Campaign finance data for the ${race.data.office} race.`}
+>
+  <!-- TODO: Chart sections, stat cards, callouts, footnotes, download buttons -->
+  <!-- Content will be populated from race.data.financeData in the next sprint -->
+  <div class="section revealed">
+    <div class="section-head">Finance data coming soon</div>
+    <div class="section-sub">
+      This page will display donor geography, occupation breakdowns, and
+      additional findings from public campaign finance filings.
+    </div>
+  </div>
+</RaceLayout>

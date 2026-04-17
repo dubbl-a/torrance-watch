@@ -1,0 +1,28 @@
+{
+  "name": "torrance-watch",
+  "version": "1.0.0",
+  "description": "Campaign finance analysis built from public donation records filed with the City of Torrance (NetFile).",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dubbl-a/torrance-watch.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/dubbl-a/torrance-watch/issues"
+  },
+  "homepage": "https://github.com/dubbl-a/torrance-watch#readme",
+  "dependencies": {
+    "@astrojs/cloudflare": "^13.1.10",
+    "astro": "^6.1.7",
+    "typescript": "^6.0.3"
+  }
+}
