@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SignupForm from '../components/SignupForm.astro';
-import { description } from '../data/site';
+import { description, SIGNUP_ENABLED } from '../data/site';
 ---
 
 <BaseLayout title="Home" description={description}>
@@ -9,16 +9,15 @@ import { description } from '../data/site';
     <div class="kicker">Torrance 2026 election</div>
     <h1>A nonpartisan civic reference for Torrance.</h1>
     <div class="dek">
-      Starting with campaign finance. Voter guide coming before June 2.
-      Standing after the election as a year-round resource on the city,
-      how it works, and who represents you.
+      Campaign finance data for the June 2, 2026 election. Nonpartisan.
+      Sourced from public records. Independent of any campaign.
     </div>
     <div class="source">
       Covering the mayor, three council races, and treasurer.
     </div>
 
     <div class="section">
-      <div class="section-head">What's here now</div>
+      <div class="section-head">Campaign finance tracker</div>
       <div class="section-sub">
         Campaign finance data from public filings, broken down by donor
         geography, occupation, and contribution size.
@@ -44,26 +43,18 @@ import { description } from '../data/site';
       </div>
     </div>
 
-    <div class="section">
-      <div class="section-head">What's coming</div>
-      <div class="section-sub">
-        A voter guide with candidate profiles, sourced positions, and
-        endorsement tracking ships before June 2. After the election,
-        Torrance Watch continues as a civic reference for who holds office,
-        how the city works, and what's being decided.
+    {SIGNUP_ENABLED && (
+      <div class="section">
+        <div class="section-head">Stay informed</div>
+        <div class="section-sub">
+          Get an email when we publish something new.
+        </div>
+        <SignupForm />
+        <p style="font-size:12px;color:#999;margin-top:0.75rem;line-height:1.5;">
+          We don't share your email. We don't send anything else. Unsubscribe any time.
+        </p>
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-head">Stay informed</div>
-      <div class="section-sub">
-        Get an email when the voter guide goes live.
-      </div>
-      <SignupForm />
-      <p style="font-size:12px;color:#999;margin-top:0.75rem;line-height:1.5;">
-        We don't share your email. We don't send anything else. Unsubscribe any time.
-      </p>
-    </div>
+    )}
 
     <div class="section">
       <div class="section-sub" style="margin-bottom:0;">

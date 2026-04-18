@@ -14,4 +14,8 @@ export const navLinks = [
 export const footerCopy =
   'Torrance Watch is an independent, nonpartisan civic project. It is not affiliated with any candidate, campaign, party, or political organization.';
 
+// Flip to true after signup backend is configured and end-to-end tested.
+// See Notion task "Hide signup form until backend is chosen and tested."
+export const SIGNUP_ENABLED = false;
+
 export const SIGNUP_ENDPOINT = '';

@@ -6,10 +6,10 @@
  * When endpoint is empty (stub), logs to console and shows success state
  * so the component is testable before a backend is chosen.
  */
-import { SIGNUP_ENDPOINT } from '../data/site';
+import { SIGNUP_ENABLED, SIGNUP_ENDPOINT } from '../data/site';
 ---
 
-<div class="signup-form-wrap">
+{SIGNUP_ENABLED && <div class="signup-form-wrap">
   <form class="signup-form" data-endpoint={SIGNUP_ENDPOINT} novalidate>
     <div class="signup-fields">
       <div class="signup-field">
@@ -101,11 +101,11 @@ import { SIGNUP_ENDPOINT } from '../data/site';
     function showSuccess(form, statusEl) {
       form.querySelector('.signup-fields').style.display = 'none';
       statusEl.className = 'signup-status signup-success';
-      statusEl.textContent = "Thanks. We'll email you when the voter guide is live.";
+      statusEl.textContent = "Thanks. We'll email you when we publish something new.";
     }
   });
 })();
-</script>
+</script>}
 
 <style>
   .signup-form-wrap {

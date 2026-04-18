@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PlotlyChart from '../../../components/charts/PlotlyChart.astro';
 import SignupForm from '../../../components/SignupForm.astro';
+import { SIGNUP_ENABLED } from '../../../data/site';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -130,7 +131,7 @@ if (s.contrast) {
 }
 ---
 
-<BaseLayout title={d.headline} description={d.dek}>
+<BaseLayout title={d.pageTitle} description={d.dek}>
   <div class="page">
     <div class="kicker">Torrance 2026 election</div>
     <h1>{d.headline}</h1>
@@ -235,15 +236,17 @@ if (s.contrast) {
       ))}
     </div>
 
-    {/* ── Stay informed ── */}
-    <div class="data-section">
-      <div class="section-head">Stay informed</div>
-      <p>Get an email when the voter guide goes live.</p>
-      <SignupForm />
-      <p style="font-size:12px;color:#999;margin-top:0.75rem;line-height:1.5;">
-        We don't share your email. We don't send anything else. Unsubscribe any time.
-      </p>
-    </div>
+    {/* ── Stay informed (hidden when SIGNUP_ENABLED is false) ── */}
+    {SIGNUP_ENABLED && (
+      <div class="data-section">
+        <div class="section-head">Stay informed</div>
+        <p>Get an email when we publish something new.</p>
+        <SignupForm />
+        <p style="font-size:12px;color:#999;margin-top:0.75rem;line-height:1.5;">
+          We don't share your email. We don't send anything else. Unsubscribe any time.
+        </p>
+      </div>
+    )}
 
     {/* ── Footnotes ── */}
     <div class="footnotes">

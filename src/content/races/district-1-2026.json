@@ -3,7 +3,8 @@
   "office": "District 1 Council",
   "electionDate": "2026-06-02",
   "candidateSlugs": ["jon-kaji", "david-kartsonis"],
-  "headline": "Who funds Jon Kaji\u2019s campaign?",
+  "pageTitle": "District 1 2026: Campaign finance",
+  "headline": "Who\u2019s funding the District 1 race?",
   "dek": "Donor data for the District 1 council race, comparing Jon Kaji and David Kartsonis.",
   "source": "Itemized donations ($100+) filed through December 31, 2025<sup>3</sup>",
   "sections": {
@@ -81,8 +82,8 @@
   "callouts": [
     {
       "number": "01",
-      "title": "25% of donor dollars from real estate",
-      "body": "Seven real estate and property professionals contributed to Kaji, including Tommy Murakoshi, who listed Kaji &amp; Associates as his employer, and Aurelio Mattucci, who is also running for City Treasurer.",
+      "title": "Real estate industry donors",
+      "body": "Kaji received contributions from seven real estate and property professionals (25% of donor dollars), including Tommy Murakoshi, who listed Kaji &amp; Associates as his employer, and Aurelio Mattucci, who is also running for City Treasurer. Kartsonis received contributions from two property professionals (14% of donor dollars).",
       "accent": "accent-red"
     },
     {
@@ -100,7 +101,7 @@
     {
       "number": "04",
       "title": "Average donation by geography",
-      "body": "Kaji\u2019s non-Torrance donors averaged 69% more per person than his Torrance-based donors."
+      "body": "Kaji\u2019s average donation: $347 from Torrance-based donors, $588 from non-Torrance donors (non-Torrance 69% higher). Kartsonis\u2019s average donation: $363 from Torrance-based donors, $308 from non-Torrance donors (Torrance 15% higher)."
     }
   ],
   "footnotes": [

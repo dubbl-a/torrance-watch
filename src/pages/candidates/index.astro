@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SignupForm from '../../components/SignupForm.astro';
+import { SIGNUP_ENABLED } from '../../data/site';
 import { getCollection } from 'astro:content';
 
 const candidates = await getCollection('candidates');
@@ -31,7 +32,7 @@ for (const c of candidates) {
       same depth, same format.
     </div>
     <div class="source">
-      Full profiles coming before June 2.
+      Candidate profiles for the June 2, 2026 municipal election.
     </div>
 
     {raceOrder.map((office) => {
@@ -51,15 +52,17 @@ for (const c of candidates) {
       );
     })}
 
-    <div class="section">
-      <div class="section-head">Stay informed</div>
-      <div class="section-sub">
-        Get an email when candidate profiles go live.
+    {SIGNUP_ENABLED && (
+      <div class="section">
+        <div class="section-head">Stay informed</div>
+        <div class="section-sub">
+          Get an email when we publish something new.
+        </div>
+        <SignupForm />
+        <p style="font-size:12px;color:#999;margin-top:0.75rem;line-height:1.5;">
+          We don't share your email. We don't send anything else. Unsubscribe any time.
+        </p>
       </div>
-      <SignupForm />
-      <p style="font-size:12px;color:#999;margin-top:0.75rem;line-height:1.5;">
-        We don't share your email. We don't send anything else. Unsubscribe any time.
-      </p>
-    </div>
+    )}
   </div>
 </BaseLayout>

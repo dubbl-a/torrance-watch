@@ -20,6 +20,7 @@ const races = defineCollection({
     office: z.string(),
     electionDate: z.string(),
     candidateSlugs: z.array(z.string()),
+    pageTitle: z.string(),
     headline: z.string(),
     dek: z.string(),
     source: z.string(),

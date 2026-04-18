@@ -3,7 +3,8 @@
   "office": "Mayor",
   "electionDate": "2026-06-02",
   "candidateSlugs": ["george-chen", "sharon-kalani"],
-  "headline": "Who funds George Chen's campaign?",
+  "pageTitle": "Mayor 2026: Campaign finance",
+  "headline": "Who's funding the mayor race?",
   "dek": "Donor data for the mayoral race, comparing George Chen and Sharon Kalani.",
   "source": "Itemized donations ($100+) filed through December 31, 2025<sup>3</sup>",
   "sections": {
@@ -81,8 +82,8 @@
   "callouts": [
     {
       "number": "01",
-      "title": "8% of Chen's donor dollars from shared-surname donors",
-      "body": "23 Chen donors filed as not employed and share a last name with at least one other Chen donor.<sup>2</sup> Torrance limits individual donations to $1,000. Kalani has zero donors in this category.",
+      "title": "Shared-surname unemployed donors",
+      "body": "Donors who filed as not employed and share a last name with at least one other donor to the same candidate<sup>2</sup>: Chen has 23 such donors (8% of his donor dollars). Kalani has zero. Torrance limits individual donations to $1,000.",
       "accent": "accent-red"
     },
     {
@@ -94,13 +95,13 @@
     {
       "number": "03",
       "title": "Real estate industry donors",
-      "body": "Real estate and property professionals contributed to Chen's campaign. Donors include Aurelio Mattucci, a real estate broker who is also running for City Treasurer.",
+      "body": "Chen received contributions from 11 real estate and property professionals (7% of donor dollars). Kalani received contributions from one property professional (9% of donor dollars). Chen's real estate donors include Aurelio Mattucci, a real estate broker who is also running for City Treasurer.",
       "accent": "accent-slate"
     },
     {
       "number": "04",
       "title": "Average donation by geography",
-      "body": "Chen's non-Torrance donors averaged 24% more per person than his Torrance-based donors."
+      "body": "Chen's non-Torrance donors averaged 55% more per person than his Torrance-based donors. Kalani's non-Torrance donors averaged 65% more per person than her Torrance-based donors."
     }
   ],
   "footnotes": [
