@@ -4,7 +4,12 @@ import SignupForm from '../components/SignupForm.astro';
 import { description, SIGNUP_ENABLED } from '../data/site';
 ---
 
-<BaseLayout title="Home" description={description}>
+<BaseLayout
+  title="Home"
+  description={description}
+  ogTitle="Torrance Watch | Nonpartisan civic reference for the City of Torrance"
+  ogDescription={description}
+>
   <div class="page">
     <div class="kicker">Torrance 2026 election</div>
     <h1>A nonpartisan civic reference for Torrance.</h1>

@@ -1,3 +1,5 @@
+export const siteUrl = 'https://torrancewatch.org';
+
 export const siteName = 'Torrance Watch';
 
 export const description =

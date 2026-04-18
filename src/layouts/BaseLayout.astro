@@ -1,15 +1,26 @@
 ---
-import { siteName, navLinks, footerCopy } from '../data/site';
+import { siteName, siteUrl, navLinks, footerCopy } from '../data/site';
 
 interface Props {
   title: string;
   description?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, ogTitle, ogDescription, ogImage } = Astro.props;
 const currentPath = Astro.url.pathname;
 const isActive = (href: string) =>
   href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+
+// Strip .html and /index.html for clean canonical URLs
+const cleanPath = currentPath.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
+const canonicalUrl = `${siteUrl}${cleanPath}`;
+const resolvedOgTitle = ogTitle || `${title} — ${siteName}`;
+const resolvedOgDescription = ogDescription || description || '';
+// TODO: og-default.png needs to be created before DNS cutover to torrancewatch.org
+const resolvedOgImage = ogImage || `${siteUrl}/og-default.png`;
 ---
 
 <!DOCTYPE html>
@@ -19,8 +30,25 @@ const isActive = (href: string) =>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title} — {siteName}</title>
   {description && <meta name="description" content={description} />}
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  {/* Open Graph */}
+  <meta property="og:title" content={resolvedOgTitle} />
+  <meta property="og:description" content={resolvedOgDescription} />
+  <meta property="og:image" content={resolvedOgImage} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={siteName} />
+
+  {/* Twitter Card */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={resolvedOgTitle} />
+  <meta name="twitter:description" content={resolvedOgDescription} />
+  <meta name="twitter:image" content={resolvedOgImage} />
 </head>
 <body>
   <div class="top-accent"></div>

@@ -131,7 +131,12 @@ if (s.contrast) {
 }
 ---
 
-<BaseLayout title={d.pageTitle} description={d.dek}>
+<BaseLayout
+  title={d.pageTitle}
+  description={d.dek}
+  ogTitle={`${d.pageTitle} | Torrance Watch`}
+  ogDescription={d.dek}
+>
   <div class="page">
     <div class="kicker">Torrance 2026 election</div>
     <h1>{d.headline}</h1>
