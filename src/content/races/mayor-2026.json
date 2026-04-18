@@ -1,0 +1,121 @@
+{
+  "slug": "mayor-2026",
+  "office": "Mayor",
+  "electionDate": "2026-06-02",
+  "candidateSlugs": ["george-chen", "sharon-kalani"],
+  "pageTitle": "Mayor 2026: Campaign finance",
+  "headline": "Who's funding the mayor race?",
+  "dek": "Donor data for the mayoral race, comparing George Chen and Sharon Kalani.",
+  "source": "Itemized donations ($100+) filed through December 31, 2025<sup>3</sup>",
+  "sections": {
+    "geo": {
+      "heading": "Where do the donors live?",
+      "sub": "45% of Chen's donors are Torrance residents. 85% of Kalani's are.",
+      "orientation": "vertical",
+      "height": "220px",
+      "legend": [
+        { "label": "Chen", "color": "#C0392B" },
+        { "label": "Kalani", "color": "#1D9E75" }
+      ],
+      "chart": {
+        "labels": ["Torrance", "Outside Torrance"],
+        "datasets": [
+          { "label": "Chen", "data": [45, 55], "color": "#C0392B" },
+          { "label": "Kalani", "data": [85, 15], "color": "#1D9E75" }
+        ]
+      }
+    },
+    "stats": {
+      "heading": "Donors at the legal maximum",
+      "sub": "Torrance caps individual donations at $1,000 per election. Percentage of each candidate's maxed-out donors who are from outside Torrance:",
+      "cards": [
+        { "variant": "stat-red", "label": "Chen's maxed-out donors from outside Torrance", "value": "76%", "valueClass": "red" },
+        { "variant": "stat-green", "label": "Kalani's maxed-out donors from outside Torrance", "value": "25%", "valueClass": "green" }
+      ]
+    },
+    "occupation": {
+      "heading": "Where do the donor dollars come from?",
+      "sub": "Each candidate's donor dollars grouped by occupation as reported on their filings.<sup>1</sup>",
+      "height": "240px",
+      "legend": [
+        { "label": "Chen", "color": "#C0392B" },
+        { "label": "Kalani", "color": "#1D9E75" }
+      ],
+      "chart": {
+        "labels": [
+          "Business owners, professionals,\nand their family \u00b9",
+          "Teachers, public servants,\nand service workers \u00b9",
+          "Retired",
+          "Not employed"
+        ],
+        "datasets": [
+          { "label": "Chen", "data": [61, 5, 31, 3], "color": "#C0392B" },
+          { "label": "Kalani", "data": [30, 19, 51, 0], "color": "#1D9E75" }
+        ]
+      }
+    },
+    "contrast": {
+      "heading": "Occupation comparison",
+      "sub": "The two occupation groups from the chart above shown side by side: business owners, professionals, and their family<sup>2</sup> vs. teachers, public servants, and service workers.",
+      "height": "180px",
+      "legend": [
+        { "label": "Chen", "color": "#C0392B" },
+        { "label": "Kalani", "color": "#1D9E75" }
+      ],
+      "chart": {
+        "labels": [
+          "Business owners, professionals,\nand their family",
+          "Teachers, public servants,\nservice workers"
+        ],
+        "datasets": [
+          { "label": "Chen", "data": [61, 5], "color": "#C0392B" },
+          { "label": "Kalani", "data": [30, 19], "color": "#1D9E75" }
+        ],
+        "tickSize": 11
+      }
+    }
+  },
+  "csvFiles": [
+    { "label": "Download Chen donor data (CSV)", "file": "/data/finance-2026/george_chen.csv", "filename": "george_chen_donors_2025.csv" },
+    { "label": "Download Kalani donor data (CSV)", "file": "/data/finance-2026/sharon_kalani.csv", "filename": "sharon_kalani_donors_2025.csv" }
+  ],
+  "callouts": [
+    {
+      "number": "01",
+      "title": "Shared-surname unemployed donors",
+      "body": "Donors who filed as not employed and share a last name with at least one other donor to the same candidate<sup>2</sup>: Chen has 23 such donors (8% of his donor dollars). Kalani has zero. Torrance limits individual donations to $1,000.",
+      "accent": "accent-red"
+    },
+    {
+      "number": "02",
+      "title": "Out-of-state donors",
+      "body": "Chen received contributions from donors in Maryland, Texas, Ohio, and Nevada. Kalani's filings show none from out of state.",
+      "accent": "accent-amber"
+    },
+    {
+      "number": "03",
+      "title": "Real estate industry donors",
+      "body": "Chen received contributions from 11 real estate and property professionals (7% of donor dollars). Kalani received contributions from one property professional (9% of donor dollars). Chen's real estate donors include Aurelio Mattucci, a real estate broker who is also running for City Treasurer.",
+      "accent": "accent-slate"
+    },
+    {
+      "number": "04",
+      "title": "Average donation by geography",
+      "body": "Chen's non-Torrance donors averaged 55% more per person than his Torrance-based donors. Kalani's non-Torrance donors averaged 65% more per person than her Torrance-based donors."
+    }
+  ],
+  "footnotes": [
+    {
+      "number": 1,
+      "body": "\"Business owners, professionals, and their family\" includes donors with filed titles of: business owner, president, CEO, CFO, founder, executive, engineer, programmer, physician, doctor, attorney, real estate broker/agent/developer, property investor, financial planner, finance manager, CPA, architect, director, manager, consultant, pharmacist, banker, insurance agent, and accountant -- as well as family members (see note 2). \"Teachers, public servants, and service workers\" includes: teacher, professor, librarian, police officer, mayor, mechanic, bank teller, pastoral assistant, sales, instructor, and similar titles. \"Retired\" and \"not employed\" are reported as filed. Two Chen donors (under 1% of dollars) did not fit any category and are excluded."
+    },
+    {
+      "number": 2,
+      "body": "\"Their family\" identifies donors who (a) filed a job title of unemployed, housewife, or homemaker and (b) share a last name with at least one other donor to the same candidate. Shared last names do not prove a family relationship -- common surnames may produce false matches. This grouping surfaces a pattern, not an assertion of specific relationships."
+    },
+    {
+      "number": 3,
+      "body": "All data from $100+ contributions filed with the City of Torrance through December 31, 2025 via <a href=\"https://public.netfile.com/pub2/?aid=TOR\">Torrance NetFile</a>. Contributions under $100 are not required to be itemized and are not included."
+    }
+  ]
+}

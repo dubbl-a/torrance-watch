@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SignupForm from '../../components/SignupForm.astro';
+import { SIGNUP_ENABLED } from '../../data/site';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const candidates = await getCollection('candidates');
+  return candidates.map((candidate) => ({
+    params: { slug: candidate.data.slug },
+    props: { candidate },
+  }));
+}
+
+const { candidate } = Astro.props;
+const c = candidate.data;
+
+// Build link back to race finance page
+const financeHref = `/finance/2026/${c.raceSlug}`;
+
+// TODO Sprint 2: sourced bio paragraphs (from c.shortBio and extended content)
+// TODO Sprint 2: key positions section (from c.keyPositions array)
+// TODO Sprint 2: endorsement tracking (from c.endorsements array)
+// TODO Sprint 2: sources consulted list (from c.sourcesConsulted array)
+// TODO Sprint 2: candidate photo (from c.photoSrc)
+// TODO Sprint 2: side-by-side comparison link to opponent
+---
+
+<BaseLayout
+  title={c.name}
+  description={`Profile for ${c.name}, candidate for ${c.office} in the Torrance 2026 election.`}
+  ogTitle={`${c.name} | Torrance Watch`}
+  ogDescription={`${c.name}, candidate for ${c.office} in the Torrance 2026 municipal election.`}
+>
+  <div class="page">
+    <div class="kicker">{c.office}</div>
+    <h1>{c.name}</h1>
+    <div class="dek">
+      Candidate for {c.office}, June 2, 2026 municipal election.
+    </div>
+    <div class="source">
+      <a href={financeHref} style="color:#999;">View campaign finance data for this race &rarr;</a>
+    </div>
+
+    <div class="section">
+      <div class="section-head">Profile</div>
+      <div class="section-sub">
+        This page covers sourced biographical information, key positions,
+        endorsements, and public sources consulted. All candidates in
+        each race receive equal treatment: same depth, same tone, same format.
+      </div>
+    </div>
+
+    {SIGNUP_ENABLED && (
+      <div class="section">
+        <div class="section-head">Stay informed</div>
+        <div class="section-sub">
+          Get an email when we publish something new.
+        </div>
+        <SignupForm />
+        <p style="font-size:12px;color:#999;margin-top:0.75rem;line-height:1.5;">
+          We don't share your email. We don't send anything else. Unsubscribe any time.
+        </p>
+      </div>
+    )}
+  </div>
+</BaseLayout>

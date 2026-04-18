@@ -1,0 +1,265 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PlotlyChart from '../../../components/charts/PlotlyChart.astro';
+import SignupForm from '../../../components/SignupForm.astro';
+import { SIGNUP_ENABLED } from '../../../data/site';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const races = await getCollection('races');
+  return races.map((race) => ({
+    params: { race: race.data.slug },
+    props: { race },
+  }));
+}
+
+const { race } = Astro.props;
+const d = race.data;
+const s = d.sections;
+
+// Shared Plotly style constants
+const FONT = "'Source Sans 3', sans-serif";
+const TXT = 'rgba(0,0,0,0.45)';
+const BAR_GAP = 0.3;
+const BAR_GROUP_GAP = 0.15;
+
+// ── Helper: build Plotly traces for a chart config ──
+function buildTraces(
+  chart: typeof s.geo.chart,
+  orientation: 'vertical' | 'horizontal',
+  hoverSuffix: string,
+  datalabelColor?: string,
+) {
+  const dlColor = datalabelColor || TXT;
+
+  if (orientation === 'vertical') {
+    return chart.datasets.map((ds) => ({
+      type: 'bar' as const,
+      name: ds.label,
+      x: chart.labels,
+      y: ds.data,
+      marker: { color: ds.color, line: { width: 0 } },
+      text: ds.data.map((v: number) => v ? v + '%' : ''),
+      textposition: 'outside' as const,
+      textfont: { size: 12, weight: 600, color: dlColor, family: FONT },
+      cliponaxis: false,
+      hovertemplate: `%{x}: %{y}${hoverSuffix}<extra>%{fullData.name}</extra>`,
+    }));
+  }
+
+  // Horizontal — reverse order so first label renders at top
+  const labels = [...chart.labels].reverse();
+  return chart.datasets.map((ds) => ({
+    type: 'bar' as const,
+    name: ds.label,
+    y: labels,
+    x: [...ds.data].reverse(),
+    orientation: 'h' as const,
+    marker: { color: Array.isArray(ds.color) ? [...ds.color].reverse() : ds.color, line: { width: 0 } },
+    text: [...ds.data].reverse().map((v: number) => v ? v + '%' : ''),
+    textposition: 'outside' as const,
+    textfont: { size: 12, weight: 600, color: dlColor, family: FONT },
+    cliponaxis: false,
+    hovertemplate: `%{y}: %{x}${hoverSuffix}<extra>%{fullData.name}</extra>`,
+  }));
+}
+
+// ── Geo chart ──
+const geoOrientation = s.geo.orientation || 'vertical';
+const geoData = buildTraces(s.geo.chart, geoOrientation, '% of donors', s.geo.datalabelColor);
+
+const geoLayout = geoOrientation === 'vertical'
+  ? {
+      font: { family: FONT },
+      showlegend: false,
+      barmode: 'group' as const,
+      bargap: BAR_GAP,
+      bargroupgap: BAR_GROUP_GAP,
+      margin: { t: 10, b: 40, l: 10, r: 10, pad: 0 },
+      xaxis: { tickfont: { size: 12, color: TXT }, showgrid: false, showline: false, fixedrange: true },
+      yaxis: { visible: false, range: [0, (s.geo.chart.max || 100) * 1.12], fixedrange: true },
+      paper_bgcolor: 'transparent',
+      plot_bgcolor: 'transparent',
+    }
+  : {
+      font: { family: FONT },
+      showlegend: false,
+      barmode: 'group' as const,
+      bargap: BAR_GAP,
+      bargroupgap: BAR_GROUP_GAP,
+      margin: { t: 5, b: 5, l: 0, r: 45, pad: 0 },
+      xaxis: { visible: false, range: [0, s.geo.chart.max || 85], fixedrange: true },
+      yaxis: { tickfont: { size: s.geo.tickSize || 10, color: TXT }, showgrid: false, showline: false, automargin: true, fixedrange: true },
+      paper_bgcolor: 'transparent',
+      plot_bgcolor: 'transparent',
+    };
+
+// ── Occupation chart (always horizontal) ──
+const occData = buildTraces(s.occupation.chart, 'horizontal', '% of dollars', s.occupation.datalabelColor);
+
+const occLayout = {
+  font: { family: FONT },
+  showlegend: false,
+  barmode: 'group' as const,
+  bargap: BAR_GAP,
+  bargroupgap: BAR_GROUP_GAP,
+  margin: { t: 5, b: 5, l: 0, r: 45, pad: 0 },
+  xaxis: { visible: false, range: [0, s.occupation.chart.max || 85], fixedrange: true },
+  yaxis: { tickfont: { size: 10, color: TXT }, showgrid: false, showline: false, automargin: true, fixedrange: true },
+  paper_bgcolor: 'transparent',
+  plot_bgcolor: 'transparent',
+};
+
+// ── Contrast chart (optional, always horizontal) ──
+let contData: unknown[] | null = null;
+let contLayout: Record<string, unknown> | null = null;
+
+if (s.contrast) {
+  contData = buildTraces(s.contrast.chart, 'horizontal', '% of dollars');
+  contLayout = {
+    font: { family: FONT },
+    showlegend: false,
+    barmode: 'group',
+    bargap: BAR_GAP,
+    bargroupgap: BAR_GROUP_GAP,
+    margin: { t: 5, b: 5, l: 0, r: 45, pad: 0 },
+    xaxis: { visible: false, range: [0, 85], fixedrange: true },
+    yaxis: { tickfont: { size: s.contrast.chart.tickSize || 10, color: TXT }, showgrid: false, showline: false, automargin: true, fixedrange: true },
+    paper_bgcolor: 'transparent',
+    plot_bgcolor: 'transparent',
+  };
+}
+---
+
+<BaseLayout
+  title={d.pageTitle}
+  description={d.dek}
+  ogTitle={`${d.pageTitle} | Torrance Watch`}
+  ogDescription={d.dek}
+>
+  <div class="page">
+    <div class="kicker">Torrance 2026 election</div>
+    <h1>{d.headline}</h1>
+    <div class="dek">{d.dek}</div>
+    <div class="source" set:html={d.source} />
+
+    {/* ── Geo section ── */}
+    <div class="section">
+      <div class="section-head">{s.geo.heading}</div>
+      <div class="section-sub">{s.geo.sub}</div>
+      {s.geo.legend && (
+        <div class="legend">
+          {s.geo.legend.map((l) => (
+            <span><i style={`background:${l.color}`}></i>{l.label}</span>
+          ))}
+        </div>
+      )}
+      <PlotlyChart
+        id="geoChart"
+        data={geoData}
+        layout={geoLayout}
+        height={s.geo.height || '220px'}
+      />
+    </div>
+
+    {/* ── Stats section (optional) ── */}
+    {s.stats && (
+      <div class="section">
+        <div class="section-head">{s.stats.heading}</div>
+        <div class="section-sub">{s.stats.sub}</div>
+        <div class="stat-row">
+          {s.stats.cards.map((card) => (
+            <div class={`stat ${card.variant}`}>
+              <div class="stat-label">{card.label}</div>
+              <div class={`stat-num ${card.valueClass}`}>{card.value}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {/* ── Occupation section ── */}
+    <div class="section">
+      <div class="section-head">{s.occupation.heading}</div>
+      <div class="section-sub" set:html={s.occupation.sub} />
+      {s.occupation.legend && (
+        <div class="legend">
+          {s.occupation.legend.map((l) => (
+            <span><i style={`background:${l.color}`}></i>{l.label}</span>
+          ))}
+        </div>
+      )}
+      <PlotlyChart
+        id="classChart"
+        data={occData}
+        layout={occLayout}
+        height={s.occupation.height || '240px'}
+      />
+    </div>
+
+    {/* ── Contrast section (optional) ── */}
+    {s.contrast && contData && contLayout && (
+      <div class="section">
+        <div class="section-head">{s.contrast.heading}</div>
+        <div class="section-sub" set:html={s.contrast.sub} />
+        {s.contrast.legend && (
+          <div class="legend">
+            {s.contrast.legend.map((l) => (
+              <span><i style={`background:${l.color}`}></i>{l.label}</span>
+            ))}
+          </div>
+        )}
+        <PlotlyChart
+          id="contrastChart"
+          data={contData}
+          layout={contLayout}
+          height={s.contrast.height || '180px'}
+        />
+      </div>
+    )}
+
+    {/* ── Callouts ── */}
+    <div class="section">
+      <div class="section-head">Additional findings</div>
+      <div class="callout-grid">
+        {d.callouts.map((c) => (
+          <div class={`callout${c.accent ? ' ' + c.accent : ''}`}>
+            <div class="callout-num">{c.number}</div>
+            <div class="callout-title">{c.title}</div>
+            <div class="callout-body" set:html={c.body} />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* ── Download section ── */}
+    <div class="data-section">
+      <div class="section-head">Verify it yourself</div>
+      <p>All data comes from public campaign finance filings. Download the underlying donor records below.</p>
+      {d.csvFiles.map((csv) => (
+        <a class="dl-btn" href={csv.file} download={csv.filename}>{csv.label}</a>
+      ))}
+    </div>
+
+    {/* ── Stay informed (hidden when SIGNUP_ENABLED is false) ── */}
+    {SIGNUP_ENABLED && (
+      <div class="data-section">
+        <div class="section-head">Stay informed</div>
+        <p>Get an email when we publish something new.</p>
+        <SignupForm />
+        <p style="font-size:12px;color:#999;margin-top:0.75rem;line-height:1.5;">
+          We don't share your email. We don't send anything else. Unsubscribe any time.
+        </p>
+      </div>
+    )}
+
+    {/* ── Footnotes ── */}
+    <div class="footnotes">
+      {d.footnotes.map((fn) => (
+        <p><sup>{fn.number}</sup> <span set:html={fn.body} /></p>
+      ))}
+    </div>
+  </div>
+
+  <script src="https://cdn.plot.ly/plotly-basic-3.5.0.min.js" is:inline></script>
+</BaseLayout>

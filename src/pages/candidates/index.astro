@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SignupForm from '../../components/SignupForm.astro';
+import { SIGNUP_ENABLED } from '../../data/site';
+import { getCollection } from 'astro:content';
+
+const candidates = await getCollection('candidates');
+
+// Group by office, maintaining a stable order
+const raceOrder = ['Mayor', 'District 1 Council', 'City Treasurer'];
+const grouped = new Map<string, typeof candidates>();
+for (const office of raceOrder) {
+  grouped.set(office, []);
+}
+for (const c of candidates) {
+  const list = grouped.get(c.data.office);
+  if (list) list.push(c);
+}
+
+// TODO Sprint 2: candidate photo thumbnails in cards
+// TODO Sprint 2: short bio excerpt below name
+// TODO Sprint 2: endorsement count badge
+// TODO Sprint 2: filter/search by name or office
+---
+
+<BaseLayout
+  title="Candidates"
+  description="Candidates in the Torrance 2026 municipal election."
+  ogTitle="Candidates | Torrance Watch"
+  ogDescription="Every candidate on the June 2, 2026 ballot. Equal treatment, same depth, same format."
+>
+  <div class="page">
+    <div class="kicker">Torrance 2026 election</div>
+    <h1>Candidates</h1>
+    <div class="dek">
+      Every candidate on the June 2, 2026 ballot. Equal treatment,
+      same depth, same format.
+    </div>
+    <div class="source">
+      Candidate profiles for the June 2, 2026 municipal election.
+    </div>
+
+    {raceOrder.map((office) => {
+      const list = grouped.get(office) || [];
+      return (
+        <div class="section">
+          <div class="section-head">{office}</div>
+          <div class="stat-row">
+            {list.map((c) => (
+              <a href={`/candidates/${c.data.slug}`} class="stat" style="text-decoration:none;">
+                <div class="stat-label" style="font-weight:600;color:#555;">{c.data.name}</div>
+                <div class="stat-note" style="margin-top:4px;">View profile &rarr;</div>
+              </a>
+            ))}
+          </div>
+        </div>
+      );
+    })}
+
+    {SIGNUP_ENABLED && (
+      <div class="section">
+        <div class="section-head">Stay informed</div>
+        <div class="section-sub">
+          Get an email when we publish something new.
+        </div>
+        <SignupForm />
+        <p style="font-size:12px;color:#999;margin-top:0.75rem;line-height:1.5;">
+          We don't share your email. We don't send anything else. Unsubscribe any time.
+        </p>
+      </div>
+    )}
+  </div>
+</BaseLayout>

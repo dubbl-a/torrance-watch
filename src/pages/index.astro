@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SignupForm from '../components/SignupForm.astro';
+import { description, SIGNUP_ENABLED } from '../data/site';
+---
+
+<BaseLayout
+  title="Home"
+  description={description}
+  ogTitle="Torrance Watch | Nonpartisan civic reference for the City of Torrance"
+  ogDescription={description}
+>
+  <div class="page">
+    <div class="kicker">Torrance 2026 election</div>
+    <h1>A nonpartisan civic reference for Torrance.</h1>
+    <div class="dek">
+      Campaign finance data for the June 2, 2026 election. Nonpartisan.
+      Sourced from public records. Independent of any campaign.
+    </div>
+    <div class="source">
+      Covering the mayor, three council races, and treasurer.
+    </div>
+
+    <div class="section">
+      <div class="section-head">Campaign finance tracker</div>
+      <div class="section-sub">
+        Campaign finance data from public filings, broken down by donor
+        geography, occupation, and contribution size.
+      </div>
+      <div class="stat-row" style="grid-template-columns:1fr;">
+        <a href="/finance/2026/mayor-2026" class="stat stat-red" style="text-decoration:none;">
+          <div class="stat-label">Mayor</div>
+          <div class="stat-note" style="color:#555;margin-top:2px;">George Chen vs. Sharon Kalani</div>
+          <div class="stat-note" style="margin-top:6px;">View finance data &rarr;</div>
+        </a>
+      </div>
+      <div class="stat-row">
+        <a href="/finance/2026/district-1-2026" class="stat" style="text-decoration:none;">
+          <div class="stat-label">District 1 Council</div>
+          <div class="stat-note" style="color:#555;margin-top:2px;">Jon Kaji vs. David Kartsonis</div>
+          <div class="stat-note" style="margin-top:6px;">View finance data &rarr;</div>
+        </a>
+        <a href="/finance/2026/treasurer-2026" class="stat" style="text-decoration:none;">
+          <div class="stat-label">City Treasurer</div>
+          <div class="stat-note" style="color:#555;margin-top:2px;">Aurelio Mattucci</div>
+          <div class="stat-note" style="margin-top:6px;">View finance data &rarr;</div>
+        </a>
+      </div>
+    </div>
+
+    {SIGNUP_ENABLED && (
+      <div class="section">
+        <div class="section-head">Stay informed</div>
+        <div class="section-sub">
+          Get an email when we publish something new.
+        </div>
+        <SignupForm />
+        <p style="font-size:12px;color:#999;margin-top:0.75rem;line-height:1.5;">
+          We don't share your email. We don't send anything else. Unsubscribe any time.
+        </p>
+      </div>
+    )}
+
+    <div class="section">
+      <div class="section-sub" style="margin-bottom:0;">
+        Torrance Watch is nonpartisan, unaffiliated with any campaign, and sourced
+        entirely from public records.
+        <a href="/about" style="color:#A32D2D;">Read more about our editorial independence &rarr;</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
