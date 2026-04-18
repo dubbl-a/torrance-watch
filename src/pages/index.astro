@@ -11,14 +11,10 @@ import { description, SIGNUP_ENABLED } from '../data/site';
   ogDescription={description}
 >
   <div class="page">
-    <div class="kicker">Torrance 2026 election</div>
-    <h1>A nonpartisan civic reference for Torrance.</h1>
+    <div class="kicker">Torrance 2026 elections</div>
+    <h1>See who's funding your June 2 ballot.</h1>
     <div class="dek">
-      Campaign finance data for the June 2, 2026 election. Nonpartisan.
-      Sourced from public records. Independent of any campaign.
-    </div>
-    <div class="source">
-      Covering the mayor, three council races, and treasurer.
+      Campaign finance for Torrance's mayor, council, and treasurer races, sourced from public filings.
     </div>
 
     <div class="section">
@@ -28,7 +24,7 @@ import { description, SIGNUP_ENABLED } from '../data/site';
         geography, occupation, and contribution size.
       </div>
       <div class="stat-row" style="grid-template-columns:1fr;">
-        <a href="/finance/2026/mayor-2026" class="stat stat-red" style="text-decoration:none;">
+        <a href="/finance/2026/mayor-2026" class="stat" style="text-decoration:none;">
           <div class="stat-label">Mayor</div>
           <div class="stat-note" style="color:#555;margin-top:2px;">George Chen vs. Sharon Kalani</div>
           <div class="stat-note" style="margin-top:6px;">View finance data &rarr;</div>
@@ -42,7 +38,8 @@ import { description, SIGNUP_ENABLED } from '../data/site';
         </a>
         <a href="/finance/2026/treasurer-2026" class="stat" style="text-decoration:none;">
           <div class="stat-label">City Treasurer</div>
-          <div class="stat-note" style="color:#555;margin-top:2px;">Aurelio Mattucci</div>
+          <div class="stat-note" style="color:#555;margin-top:2px;">Aurelio Mattucci vs. Mike Griffiths</div>
+          <div class="stat-note stat-note-sub" style="margin-top:4px;">Finance data currently available for Mattucci only.</div>
           <div class="stat-note" style="margin-top:6px;">View finance data &rarr;</div>
         </a>
       </div>
@@ -60,13 +57,10 @@ import { description, SIGNUP_ENABLED } from '../data/site';
         </p>
       </div>
     )}
-
-    <div class="section">
-      <div class="section-sub" style="margin-bottom:0;">
-        Torrance Watch is nonpartisan, unaffiliated with any campaign, and sourced
-        entirely from public records.
-        <a href="/about" style="color:#A32D2D;">Read more about our editorial independence &rarr;</a>
-      </div>
-    </div>
   </div>
 </BaseLayout>
+
+<style>
+  .page > .dek { margin-bottom: 2.5rem; }
+  .stat-note-sub { color: #888; font-style: italic; }
+</style>
