@@ -1,4 +1,5 @@
 import type { APIContext } from 'astro';
+import { env } from 'cloudflare:workers';
 import { Resend } from 'resend';
 import { NEWSLETTER_TOPIC_ID } from '../../data/site';
 
@@ -171,7 +172,7 @@ function isDuplicateContactError(err: {
 }
 
 export async function POST(context: APIContext): Promise<Response> {
-  const { request, locals, url } = context;
+  const { request, url } = context;
 
   let parsed: { fields: FieldMap; wantsRedirect: boolean };
   try {
@@ -199,7 +200,7 @@ export async function POST(context: APIContext): Promise<Response> {
   }
   const clean = result.clean;
 
-  const apiKey = locals.runtime?.env?.RESEND_API_KEY;
+  const apiKey = env.RESEND_API_KEY;
   if (!apiKey) {
     console.error('[signup] RESEND_API_KEY not configured');
     return serverErrorResponse(wantsRedirect);
