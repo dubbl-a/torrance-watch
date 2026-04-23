@@ -1,43 +1,134 @@
 ---
 /**
- * SignupForm — email signup for voter guide notifications.
+ * SignupForm — email signup for Torrance Watch civic updates.
  *
- * Posts JSON { email, zip, source } to SIGNUP_ENDPOINT from site.ts.
- * When endpoint is empty (stub), logs to console and shows success state
- * so the component is testable before a backend is chosen.
+ * Posts to SIGNUP_ENDPOINT. Progressive enhancement: fetch() as JSON when JS
+ * is available, native form POST (form-encoded) otherwise. Server handles both.
+ * Honeypot (website field) and a client-populated source_page_path are included.
  */
 import { SIGNUP_ENABLED, SIGNUP_ENDPOINT } from '../data/site';
+
+const SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
+  { label: 'How did you hear about us? (optional)', value: '' },
+  { label: 'Word of mouth', value: 'Word of mouth' },
+  { label: 'Social media (Twitter/X, Facebook, Instagram, Nextdoor, Bluesky)', value: 'Social media' },
+  { label: 'Search (Google, etc.)', value: 'Search' },
+  { label: 'News article or blog', value: 'News article or blog' },
+  { label: 'Community meeting or event', value: 'Community meeting or event' },
+  { label: 'Email from someone', value: 'Email from someone' },
+  { label: 'Other', value: 'Other' },
+];
 ---
 
 {SIGNUP_ENABLED && <div class="signup-form-wrap">
-  <form class="signup-form" data-endpoint={SIGNUP_ENDPOINT} novalidate>
+  <form
+    class="signup-form"
+    method="post"
+    action={SIGNUP_ENDPOINT}
+    data-endpoint={SIGNUP_ENDPOINT}
+    novalidate
+  >
+    <p class="signup-legend"><span class="signup-req" aria-hidden="true">*</span> required</p>
+
     <div class="signup-fields">
       <div class="signup-field">
-        <label for="signup-email">Email</label>
+        <label for="signup-first-name">
+          First name <span class="signup-req" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="text"
+          id="signup-first-name"
+          name="first_name"
+          required
+          maxlength="100"
+          autocomplete="given-name"
+          aria-describedby="signup-first-name-error"
+        />
+        <span class="signup-field-error" id="signup-first-name-error" aria-live="polite"></span>
+      </div>
+
+      <div class="signup-field">
+        <label for="signup-last-name">
+          Last name <span class="signup-req" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="text"
+          id="signup-last-name"
+          name="last_name"
+          required
+          maxlength="100"
+          autocomplete="family-name"
+          aria-describedby="signup-last-name-error"
+        />
+        <span class="signup-field-error" id="signup-last-name-error" aria-live="polite"></span>
+      </div>
+
+      <div class="signup-field">
+        <label for="signup-email">
+          Email <span class="signup-req" aria-hidden="true">*</span>
+        </label>
         <input
           type="email"
           id="signup-email"
           name="email"
           required
+          maxlength="254"
           autocomplete="email"
           placeholder="you@example.com"
+          aria-describedby="signup-email-error"
         />
+        <span class="signup-field-error" id="signup-email-error" aria-live="polite"></span>
       </div>
+
       <div class="signup-field signup-field-zip">
-        <label for="signup-zip">Zip <span class="signup-optional">(optional)</span></label>
+        <label for="signup-zip">
+          Zip <span class="signup-optional">(optional)</span>
+        </label>
         <input
           type="text"
           id="signup-zip"
           name="zip"
-          pattern="[0-9]{5}"
+          pattern="\d{5}(-\d{4})?"
           inputmode="numeric"
-          maxlength="5"
+          maxlength="10"
           placeholder="90501"
           autocomplete="postal-code"
+          aria-describedby="signup-zip-error"
+        />
+        <span class="signup-field-error" id="signup-zip-error" aria-live="polite"></span>
+      </div>
+
+      <div class="signup-field signup-field-full">
+        <label for="signup-source">
+          How did you hear about us? <span class="signup-optional">(optional)</span>
+        </label>
+        <select
+          id="signup-source"
+          name="source_self_reported"
+          aria-describedby="signup-source-error"
+        >
+          {SOURCE_OPTIONS.map((opt) => (
+            <option value={opt.value}>{opt.label}</option>
+          ))}
+        </select>
+        <span class="signup-field-error" id="signup-source-error" aria-live="polite"></span>
+      </div>
+
+      <div class="signup-honeypot" aria-hidden="true">
+        <label for="signup-website">Website (leave blank)</label>
+        <input
+          type="text"
+          id="signup-website"
+          name="website"
+          tabindex="-1"
+          autocomplete="off"
         />
       </div>
-      <button type="submit" class="dl-btn signup-btn">Notify me</button>
+
+      <input type="hidden" name="source_page_path" value="" />
     </div>
+
+    <button type="submit" class="dl-btn signup-btn">Subscribe</button>
     <div class="signup-status" aria-live="polite"></div>
   </form>
 </div>
@@ -48,61 +139,123 @@ import { SIGNUP_ENABLED, SIGNUP_ENDPOINT } from '../data/site';
     if (form.dataset.bound) return;
     form.dataset.bound = 'true';
 
+    var pathInput = form.querySelector('input[name="source_page_path"]');
+    if (pathInput) pathInput.value = window.location.pathname || '/';
+
+    var statusEl = form.querySelector('.signup-status');
+    var btn = form.querySelector('button[type="submit"]');
+    var endpoint = form.dataset.endpoint;
+
+    function clearErrors() {
+      form.querySelectorAll('.signup-field-error').forEach(function (el) {
+        el.textContent = '';
+        el.classList.remove('is-visible');
+      });
+      statusEl.className = 'signup-status';
+      statusEl.textContent = '';
+    }
+
+    function showFieldError(fieldName, message) {
+      var input = form.querySelector('[name="' + fieldName + '"]');
+      if (!input) {
+        showTopError(message);
+        return;
+      }
+      var errorId = input.getAttribute('aria-describedby');
+      var errorEl = errorId ? document.getElementById(errorId) : null;
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.add('is-visible');
+      } else {
+        showTopError(message);
+      }
+      if (typeof input.focus === 'function') input.focus();
+    }
+
+    function showTopError(message) {
+      statusEl.className = 'signup-status signup-error';
+      statusEl.innerHTML = message;
+    }
+
+    function showSuccess() {
+      form.querySelector('.signup-fields').style.display = 'none';
+      btn.style.display = 'none';
+      form.querySelector('.signup-legend').style.display = 'none';
+      statusEl.className = 'signup-status signup-success';
+      statusEl.textContent = "Thanks. You're subscribed.";
+    }
+
+    function collectPayload() {
+      var fd = new FormData(form);
+      return {
+        first_name: (fd.get('first_name') || '').toString().trim(),
+        last_name: (fd.get('last_name') || '').toString().trim(),
+        email: (fd.get('email') || '').toString().trim(),
+        zip: (fd.get('zip') || '').toString().trim(),
+        source_self_reported: (fd.get('source_self_reported') || '').toString(),
+        source_page_path: (fd.get('source_page_path') || '').toString(),
+        website: (fd.get('website') || '').toString(),
+      };
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var emailInput = form.querySelector('input[name="email"]');
-      var zipInput = form.querySelector('input[name="zip"]');
-      var statusEl = form.querySelector('.signup-status');
-      var email = emailInput.value.trim();
-      var zip = zipInput.value.trim();
+      clearErrors();
 
-      // Browser validation
-      if (!email || !emailInput.checkValidity()) {
-        emailInput.reportValidity();
-        return;
-      }
-      if (zip && !zipInput.checkValidity()) {
-        zipInput.reportValidity();
+      // HTML5 validity pass — catches required/pattern issues with native UI.
+      var firstInvalid = form.querySelector(':invalid');
+      if (firstInvalid) {
+        if (typeof firstInvalid.reportValidity === 'function') firstInvalid.reportValidity();
         return;
       }
 
-      var endpoint = form.dataset.endpoint;
-      var payload = { email: email, zip: zip || null, source: 'torrancewatch.org' };
+      var payload = collectPayload();
 
-      // Stub behavior: no endpoint configured yet, log and show success
-      if (!endpoint) {
-        console.log('[SignupForm] No endpoint configured. Payload:', payload);
-        showSuccess(form, statusEl);
-        return;
-      }
-
-      // POST to configured endpoint
-      var btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
-      btn.textContent = 'Sending...';
+      var originalText = btn.textContent;
+      btn.textContent = 'Sending…';
 
       fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
         body: JSON.stringify(payload),
       })
         .then(function (res) {
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          showSuccess(form, statusEl);
+          return res.json().then(function (body) {
+            return { ok: res.ok, status: res.status, body: body };
+          }).catch(function () {
+            return { ok: res.ok, status: res.status, body: null };
+          });
+        })
+        .then(function (result) {
+          if (result.ok && result.body && result.body.ok) {
+            showSuccess();
+            return;
+          }
+          btn.disabled = false;
+          btn.textContent = originalText;
+          var body = result.body || {};
+          if (body.error === 'validation' && body.field) {
+            showFieldError(body.field, body.message || 'Please check this field.');
+          } else {
+            showTopError(
+              (body.message || 'Something went wrong. Please try again.') +
+              ' Or email <a href="mailto:hello@torrancewatch.org">hello@torrancewatch.org</a>.'
+            );
+          }
         })
         .catch(function () {
           btn.disabled = false;
-          btn.textContent = 'Notify me';
-          statusEl.className = 'signup-status signup-error';
-          statusEl.innerHTML = 'Something went wrong. Please try again or email <a href="mailto:hello@torrancewatch.org">hello@torrancewatch.org</a>.';
+          btn.textContent = originalText;
+          showTopError(
+            'Something went wrong. Please try again or email ' +
+            '<a href="mailto:hello@torrancewatch.org">hello@torrancewatch.org</a>.'
+          );
         });
     });
-
-    function showSuccess(form, statusEl) {
-      form.querySelector('.signup-fields').style.display = 'none';
-      statusEl.className = 'signup-status signup-success';
-      statusEl.textContent = "Thanks. We'll email you when we publish something new.";
-    }
   });
 })();
 </script>}
@@ -111,17 +264,28 @@ import { SIGNUP_ENABLED, SIGNUP_ENDPOINT } from '../data/site';
   .signup-form-wrap {
     margin-top: 1rem;
   }
+  .signup-legend {
+    margin: 0 0 10px;
+    font-size: 12px;
+    color: #888;
+  }
+  .signup-req {
+    color: #C0392B;
+    font-weight: 600;
+  }
   .signup-fields {
-    display: flex;
-    gap: 8px;
-    align-items: flex-end;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 10px;
+    align-items: start;
   }
   .signup-field {
-    flex: 1 1 200px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
   }
-  .signup-field-zip {
-    flex: 0 0 100px;
+  .signup-field-full {
+    grid-column: 1 / -1;
   }
   .signup-field label {
     display: block;
@@ -134,7 +298,8 @@ import { SIGNUP_ENABLED, SIGNUP_ENDPOINT } from '../data/site';
     font-weight: 400;
     color: #aaa;
   }
-  .signup-field input {
+  .signup-field input,
+  .signup-field select {
     width: 100%;
     height: 44px;
     padding: 0 12px;
@@ -146,18 +311,45 @@ import { SIGNUP_ENABLED, SIGNUP_ENDPOINT } from '../data/site';
     border-radius: 8px;
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
   }
-  .signup-field input:focus {
+  .signup-field select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' fill='none' stroke='%23888' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 32px;
+  }
+  .signup-field input:focus,
+  .signup-field select:focus {
     border-color: #C0392B;
     box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.1);
   }
   .signup-field input::placeholder {
     color: #bbb;
   }
+  .signup-field-error {
+    display: none;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #B83230;
+  }
+  .signup-field-error.is-visible {
+    display: block;
+  }
+  .signup-honeypot {
+    position: absolute !important;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
   .signup-btn {
+    display: inline-block;
     height: 44px;
-    flex-shrink: 0;
-    margin-bottom: 0;
+    margin-top: 14px;
   }
   .signup-status {
     margin-top: 0.75rem;
@@ -176,10 +368,7 @@ import { SIGNUP_ENABLED, SIGNUP_ENDPOINT } from '../data/site';
   }
   @media (max-width: 540px) {
     .signup-fields {
-      flex-direction: column;
-    }
-    .signup-field-zip {
-      flex: 1 1 auto;
+      grid-template-columns: 1fr;
     }
     .signup-btn {
       width: 100%;
