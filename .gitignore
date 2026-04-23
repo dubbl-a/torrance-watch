@@ -13,6 +13,7 @@ node_modules/
 # environment variables
 .env
 .env.*
+.dev.vars
 
 # OS files
 .DS_Store

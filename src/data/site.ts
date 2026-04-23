@@ -21,3 +21,6 @@ export const footerCopy =
 export const SIGNUP_ENABLED = false;
 
 export const SIGNUP_ENDPOINT = '';
+
+// Resend Topic ID for the "Civic Updates" topic.
+export const NEWSLETTER_TOPIC_ID = '75ede5cf-c8ad-4b16-83ae-d1b34ca63723';
