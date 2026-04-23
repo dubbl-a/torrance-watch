@@ -16,6 +16,11 @@ export const navLinks = [
 export const footerCopy =
   'Torrance Watch is an independent, nonpartisan civic project. It is not affiliated with any candidate, campaign, party, or political organization.';
 
+export const contactEmail = 'hello@torrancewatch.org';
+
+export const contactCopy =
+  'Questions, corrections, or want to help keep this site going? We welcome feedback and volunteers.';
+
 // Newsletter signup wired to /api/signup (Astro endpoint → Resend). Flip to
 // false to hide the form without removing it.
 export const SIGNUP_ENABLED = true;

@@ -1,5 +1,5 @@
 ---
-import { siteName, siteUrl, navLinks, footerCopy } from '../data/site';
+import { siteName, siteUrl, navLinks, footerCopy, contactEmail, contactCopy } from '../data/site';
 
 interface Props {
   title: string;
@@ -68,6 +68,7 @@ const resolvedOgImage = ogImage || `${siteUrl}/og-default.png`;
   <footer class="page" style="padding-top:0;padding-bottom:2rem;">
     <div class="footnotes revealed" style="margin-top:3rem;">
       <p>{footerCopy}</p>
+      <p>{contactCopy} <a href={`mailto:${contactEmail}`}>{contactEmail}</a></p>
     </div>
   </footer>
 
