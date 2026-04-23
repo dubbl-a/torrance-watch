@@ -28,10 +28,14 @@ const SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
     data-endpoint={SIGNUP_ENDPOINT}
     novalidate
   >
+    <p class="signup-intro">
+      What you'll get: campaign finance updates, candidate profiles, and voter
+      guidance for Torrance's June 2026 municipal election. A few emails a month.
+    </p>
     <p class="signup-legend"><span class="signup-req" aria-hidden="true">*</span> required</p>
 
     <div class="signup-fields">
-      <div class="signup-field">
+      <div class="signup-field signup-field-first">
         <label for="signup-first-name">
           First name <span class="signup-req" aria-hidden="true">*</span>
         </label>
@@ -47,7 +51,7 @@ const SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
         <span class="signup-field-error" id="signup-first-name-error" aria-live="polite"></span>
       </div>
 
-      <div class="signup-field">
+      <div class="signup-field signup-field-last">
         <label for="signup-last-name">
           Last name <span class="signup-req" aria-hidden="true">*</span>
         </label>
@@ -63,7 +67,7 @@ const SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
         <span class="signup-field-error" id="signup-last-name-error" aria-live="polite"></span>
       </div>
 
-      <div class="signup-field">
+      <div class="signup-field signup-field-email">
         <label for="signup-email">
           Email <span class="signup-req" aria-hidden="true">*</span>
         </label>
@@ -88,7 +92,7 @@ const SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
           type="text"
           id="signup-zip"
           name="zip"
-          pattern="\d{5}(-\d{4})?"
+          pattern="[0-9]{5}(-[0-9]{4})?"
           inputmode="numeric"
           maxlength="10"
           placeholder="90501"
@@ -98,7 +102,7 @@ const SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
         <span class="signup-field-error" id="signup-zip-error" aria-live="polite"></span>
       </div>
 
-      <div class="signup-field signup-field-full">
+      <div class="signup-field signup-field-source">
         <label for="signup-source">
           How did you hear about us? <span class="signup-optional">(optional)</span>
         </label>
@@ -202,6 +206,9 @@ const SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
       e.preventDefault();
       clearErrors();
 
+      var zipInput = form.querySelector('[name="zip"]');
+      if (zipInput) zipInput.value = zipInput.value.trim();
+
       // HTML5 validity pass — catches required/pattern issues with native UI.
       var firstInvalid = form.querySelector(':invalid');
       if (firstInvalid) {
@@ -262,7 +269,14 @@ const SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
 
 <style>
   .signup-form-wrap {
-    margin-top: 1rem;
+    max-width: 560px;
+    margin: 1rem auto 0;
+  }
+  .signup-intro {
+    margin: 0 0 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #555;
   }
   .signup-legend {
     margin: 0 0 10px;
@@ -275,7 +289,10 @@ const SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
   }
   .signup-fields {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "first last  email"
+      "zip   src   src";
     gap: 12px 10px;
     align-items: start;
   }
@@ -284,9 +301,11 @@ const SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
     flex-direction: column;
     min-width: 0;
   }
-  .signup-field-full {
-    grid-column: 1 / -1;
-  }
+  .signup-field-first  { grid-area: first; }
+  .signup-field-last   { grid-area: last; }
+  .signup-field-email  { grid-area: email; }
+  .signup-field-zip    { grid-area: zip; }
+  .signup-field-source { grid-area: src; }
   .signup-field label {
     display: block;
     font-size: 12px;
@@ -369,6 +388,12 @@ const SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
   @media (max-width: 540px) {
     .signup-fields {
       grid-template-columns: 1fr;
+      grid-template-areas:
+        "first"
+        "last"
+        "email"
+        "zip"
+        "src";
     }
     .signup-btn {
       width: 100%;
