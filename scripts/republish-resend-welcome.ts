@@ -35,7 +35,7 @@ const WELCOME_HTML = `<!doctype html>
       </tr>
       <tr>
         <td style="padding:0 0 12px 0;color:#1a1a1a;font-size:16px;line-height:1.65;font-family:'Source Sans 3',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
-          Hi {{{FIRST_NAME}}},
+          Hi {{{FIRST}}},
         </td>
       </tr>
       <tr>
@@ -86,7 +86,7 @@ const WELCOME_HTML = `<!doctype html>
 
 const WELCOME_TEXT = `Welcome to Torrance Watch
 
-Hi {{{FIRST_NAME}}},
+Hi {{{FIRST}}},
 
 Thanks for signing up. We started Torrance Watch because local government is hard to follow, even when you want to pay attention. Who's on council, what they're voting on, who's funding the next election, what's actually in the city budget. We're building the reference we wished existed.
 
@@ -118,6 +118,7 @@ async function main(): Promise<void> {
   const updateRes = await resend.templates.update(TEMPLATE_ID, {
     html: WELCOME_HTML,
     text: WELCOME_TEXT,
+    variables: [{ key: 'FIRST', type: 'string', fallbackValue: 'there' }],
   });
   if (updateRes.error) {
     console.error('  update failed:', updateRes.error);

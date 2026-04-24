@@ -32,7 +32,6 @@ const SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
       What you'll get: campaign finance updates, candidate profiles, and voter
       guidance for Torrance's June 2026 municipal election. A few emails a month.
     </p>
-    <p class="signup-legend"><span class="signup-req" aria-hidden="true">*</span> required</p>
 
     <div class="signup-fields">
       <div class="signup-field signup-field-first">
@@ -184,7 +183,6 @@ const SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
     function showSuccess() {
       form.querySelector('.signup-fields').style.display = 'none';
       btn.style.display = 'none';
-      form.querySelector('.signup-legend').style.display = 'none';
       statusEl.className = 'signup-status signup-success';
       statusEl.textContent = "Thanks. You're subscribed.";
     }
@@ -277,11 +275,6 @@ const SOURCE_OPTIONS: Array<{ label: string; value: string }> = [
     font-size: 14px;
     line-height: 1.5;
     color: #555;
-  }
-  .signup-legend {
-    margin: 0 0 10px;
-    font-size: 12px;
-    color: #888;
   }
   .signup-req {
     color: #C0392B;

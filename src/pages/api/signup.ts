@@ -233,6 +233,7 @@ export async function POST(context: APIContext): Promise<Response> {
         event: 'contact.welcome',
         email: clean.email,
         payload: {
+          first_name: clean.first_name,
           source_page_path: clean.source_page_path,
           zip: clean.zip,
         },
