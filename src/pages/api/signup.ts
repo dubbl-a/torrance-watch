@@ -225,6 +225,24 @@ export async function POST(context: APIContext): Promise<Response> {
   });
 
   if (!createResult.error) {
+    // Fire welcome-series trigger only on new-contact creation. Returning
+    // subscribers (duplicate path below) should not be re-welcomed. A failed
+    // event send must not fail the signup.
+    try {
+      const eventResult = await resend.events.send({
+        event: 'contact.welcome',
+        email: clean.email,
+        payload: {
+          source_page_path: clean.source_page_path,
+          zip: clean.zip,
+        },
+      });
+      if (eventResult.error) {
+        console.error('[signup] welcome event send failed', eventResult.error);
+      }
+    } catch (err) {
+      console.error('[signup] welcome event send threw', err);
+    }
     return successResponse(wantsRedirect, url);
   }
 
